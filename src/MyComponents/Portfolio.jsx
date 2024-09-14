@@ -23,9 +23,9 @@ export default function Portfolio() {
 
   const projectCards = [
     { title: 'Niri Global', image: '/placeholder.svg?height=200&width=300' },
-    { title: 'Elara', image: '/placeholder.svg?height=200&width=300' },
-    { title: 'Verve', image: '/placeholder.svg?height=200&width=300' },
-    { title: 'Zephyr', image: '/placeholder.svg?height=200&width=300' },
+    { title: 'GT Financial Services', image: '/placeholder.svg?height=200&width=300' },
+    { title: 'Synergy Institute', image: '/placeholder.svg?height=200&width=300' },
+    { title: 'Devruks Globalization', image: '/placeholder.svg?height=200&width=300' },
   ]
 
   const navItems = ['PROJECTS', 'ABOUT', 'CONTACT']
@@ -107,6 +107,8 @@ export default function Portfolio() {
             Artist Redefining<br />
             Architecture with<br />
             AI-Driven Design
+
+           
           </h2>
         </motion.div>
 
@@ -126,7 +128,8 @@ export default function Portfolio() {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           <p className="text-sm pr-4">
-            Julia Huang is an innovative AI artist, renowned for blending cutting-edge technology with creative expression. Based in LA, she crafts unique digital art experiences accessible globally.
+            I’m creative, unique, independent, passionate developer with extensive experience creating percussive and attractive marketing and communications. I have a strong background in developing and implementing digital marketing strategies, social media campaigns, and content creation.
+            <br></br>I am a highly motivated individual with a strong work ethic and a passion for creating innovative and engaging content.
           </p>
           <div className="w-8 h-8 border-2 border-black rounded-full flex items-center justify-center flex-shrink-0">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
@@ -141,6 +144,7 @@ export default function Portfolio() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
+
           <h3 className="text-2xl font-semibold">Contact me</h3>
           <ArrowUpRight className="w-6 h-6" />
         </motion.div>
