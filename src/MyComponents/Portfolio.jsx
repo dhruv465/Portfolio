@@ -129,7 +129,6 @@ export default function Portfolio() {
         >
           <p className="text-sm pr-4">
             I’m creative, unique, independent, passionate developer with extensive experience creating percussive and attractive marketing and communications. I have a strong background in developing and implementing digital marketing strategies, social media campaigns, and content creation.
-            <br></br>I am a highly motivated individual with a strong work ethic and a passion for creating innovative and engaging content.
           </p>
           <div className="w-8 h-8 border-2 border-black rounded-full flex items-center justify-center flex-shrink-0">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
