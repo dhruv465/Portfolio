@@ -187,7 +187,7 @@ export default function Portfolio() {
                         transition={{ duration: 0.3 }}
                         className="mt-2"
                       >
-                        <img src={project.image} alt={`${project.title} Project`} className="w-full h-80 object-cover rounded-2xl" />
+                        <img src={project.image} alt={`${project.title} Project`} className="w-full h-80 sm:h-40 object-cover rounded-2xl" />
                         <ArrowUpRight className="w-6 h-6 absolute top-0 right-0" />
                       </motion.div>
                     )}
