@@ -104,7 +104,7 @@ export default function Portfolio() {
           <div className="mb-4">
             <img src={Robo} alt="Robo" className=" w-16 h-16" />
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold leading-tight title-card">
+          <h2 className="text-4xl md:text-6xl font-extrabold leading-tight title-card">
             Dev Revolutionizing<br />
             <span className='Architecture'> Technology </span> with<br />
             AI-Enhanced Solutions
