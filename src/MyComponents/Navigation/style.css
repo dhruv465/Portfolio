@@ -1,77 +1,30 @@
-.HEADER {
-    background-color: #F8AFA6;
-    border-radius: 20px;
-    height: 101px;
-    overflow: hidden;
-    width: 1392px;
-    position: relative;
-    top: 0;
-}
-
-.HEADER .NAV {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    left: 24px;
-    position: relative;
-    top: 42px;
-    width: 1343px;
-}
-
-.HEADER .LOGO {
+.font-logo {
     color: #000000;
-    font-family: "Gilroy-Light", Helvetica;
-    font-size: 25px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: normal;
-    margin-top: -1px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+    font-family: "GilroyRegular", Helvetica;
 }
 
-.HEADER .text-wrapper {
-    font-family: "Gilroy-LightItalic", Helvetica;
+.menu {
+    font-family: "GilroyRegular", Helvetica;
+    font-weight: 300;
+    color: 'black';
+    fontSize: 16;
+    wordWrap: 'break-word'
+
+}
+
+.title-card {
+    color: var(--Text, #000);
+    font-family: "GilroyRegular";
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    /* 56px */
+}
+
+.Architecture {
+    font-family: "GilroyRegular"; 
     font-style: italic;
     font-weight: 300;
-}
-
-.HEADER .span {
-    font-weight: 300;
-}
-
-.HEADER .text-wrapper-2 {
-    font-family: "Gilroy-Medium", Helvetica;
-    font-weight: 500;
-}
-
-.HEADER .PAGE-LINKS {
-    height: 11px;
-    position: relative;
-    width: 303px;
-
-}
-
-.HEADER .frame {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    width: 303px;
-}
-
-.HEADER .div {
-    color: #0c0c0c;
-    font-family: "Gilroy-Light", Helvetica;
-    font-size: 16px;
-    font-weight: 300;
-    letter-spacing: 0;
-    line-height: normal;
-    margin-top: -15px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
-    align-items: center;
-
+    line-height: 100%;
 }

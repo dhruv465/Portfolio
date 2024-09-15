@@ -3,3 +3,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: "GilroyRegular";
+    src: local("GilroyRegular"),
+      url("./fonts/Gilroy-Regular.ttf") format("opentype");
+    font-weight: normal;
+  }
