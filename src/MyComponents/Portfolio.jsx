@@ -5,6 +5,12 @@ import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import myImage from '../assets/Dhruv.jpg';
 import Robo from '../assets/Robo.png';
+import GT from '../assets/GT.png';
+import Devruks from '../assets/Devruks.png';
+import Synergy from '../assets/Synergy.png';
+import Niri from '../assets/NiriGlobal.png';
+
+
 
 export default function Portfolio() {
   const [isMobile, setIsMobile] = useState(false)
@@ -23,10 +29,10 @@ export default function Portfolio() {
   }, [])
 
   const projectCards = [
-    { title: 'Niri Global', image: '/placeholder.svg?height=200&width=300' },
-    { title: 'GT Financial Services', image: '/placeholder.svg?height=200&width=300' },
-    { title: 'Synergy Institute', image: '/placeholder.svg?height=200&width=300' },
-    { title: 'Devruks Globalization', image: '/placeholder.svg?height=200&width=300' },
+    { title: 'Niri Global', image: Niri },
+    { title: 'GT Financial Services', image: GT },
+    { title: 'Synergy Institute', image: Synergy },
+    { title: 'Devruks Globalization', image: Devruks },
   ]
 
   const navItems = ['PROJECTS', 'ABOUT', 'CONTACT']
@@ -181,7 +187,7 @@ export default function Portfolio() {
                         transition={{ duration: 0.3 }}
                         className="mt-2"
                       >
-                        <img src={project.image} alt={`${project.title} Project`} className="w-full h-40 object-cover rounded-2xl" />
+                        <img src={project.image} alt={`${project.title} Project`} className="w-full h-80 object-cover rounded-2xl" />
                         <ArrowUpRight className="w-6 h-6 absolute top-0 right-0" />
                       </motion.div>
                     )}
