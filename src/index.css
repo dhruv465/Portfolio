@@ -29,8 +29,6 @@
 .title-card {
     color: var(--Text, #000);
     font-family: "GilroyRegular";
-    font-size: 56px;
-    font-style: normal;
     font-weight: 700;
     line-height: 100%;
     /* 56px */
