@@ -32,14 +32,10 @@ export default function About() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
                         <p>
-                            Julia Huang is an innovative AI artist based in Los Angeles, renowned for blending cutting-edge technology with creative expression. With a background in both computer science and fine arts, Julia pushes the boundaries of what's possible in digital art and architecture.
-                        </p>
+                        I’m creative, unique, independent, passionate developer with extensive experience creating percussive and attractive marketing and communications.                         </p>
                         <p>
-                            Her work explores the intersection of artificial intelligence, generative design, and human creativity. Julia's projects have been featured in galleries worldwide and have garnered attention for their unique approach to reimagining urban spaces and architectural concepts.
-                        </p>
-                        <p>
-                            When not working on her latest AI-driven art piece, Julia can be found mentoring young artists and technologists, advocating for ethical AI practices in creative fields, and exploring the vast potential of machine learning in design.
-                        </p>
+                        I look forward to work in a healthy, innovative & challenging environment extracting the best out of me, which is conductive to learn at professional as well as personal level thereby directing my future endeavours as an asset to the organisations.                        </p>
+                        
                     </motion.div>
                 </div>
             </div>

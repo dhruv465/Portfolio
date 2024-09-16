@@ -5,6 +5,7 @@ import GT from '../../assets/GT.png'
 import Devruks from '../../assets/Devruks.png'
 import Synergy from '../../assets/Synergy.png'
 import Niri from '../../assets/NiriGlobal.png'
+import MMT from '../../assets/make-my-trip.png'
 
 const ProjectsPage = () => {
   const [hoveredProject, setHoveredProject] = useState(null)
@@ -16,6 +17,8 @@ const ProjectsPage = () => {
     { title: 'GT Financial Services', description: 'Cutting-edge fintech solutions for modern banking', image: GT, link: 'https://gtfinancialservices.in' },
     { title: 'Synergy Institute', description: 'Advanced research facility for sustainable energy', image: Synergy, link: 'https://synergyinstitutes.com' },
     { title: 'Devruks Globalization', description: 'Global expansion strategies for tech startups', image: Devruks, link: 'https://devruks.com' },
+    { title: 'Make My Trip', description: 'It is a clone project for the assignment submission', image: MMT, link: 'https://make-my-trip-clone-lyart.vercel.app' },
+   
   ]
 
   const handleMouseMove = (event, index) => {
