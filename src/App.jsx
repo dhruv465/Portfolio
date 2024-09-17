@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Projects from './pages/Projects';
 import About from './pages/About';
 import Loader from './MyComponents/loader/Loader';
+import ContactUs from './pages/ContactUs';
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/my work" element={<Projects />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<ContactUs/>} />
       </Routes>
     </Router>
   );
