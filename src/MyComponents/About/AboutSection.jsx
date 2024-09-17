@@ -4,12 +4,12 @@ import { motion } from 'framer-motion'
 export default function AboutSection() {
   return (
     <motion.div
-      className="bg-indigo-200 p-6 rounded-3xl flex items-center justify-between"
+      className="bg-indigo-200 p-6 rounded-3xl flex items-center justify-between lg:col-span-2"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 }}
     >
-      <p className="text-lg pr-4">
+      <p className="lg:text-2xl font-medium pr-4">
         I'm creative, unique, independent, passionate developer with extensive experience creating percussive and attractive marketing and communications. I have a strong background in developing and implementing digital marketing strategies, social media campaigns, and content creation.
       </p>
       <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
