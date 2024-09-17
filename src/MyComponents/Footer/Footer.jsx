@@ -204,7 +204,7 @@ export default function Footer() {
     >
       <div className="flex justify-between items-center">
         <AnimatedLink href="https://www.instagram.com/dhruv__cdlxv.pvt/?igsh=MW16eHZoNzR0d3Y1bw%3D%3D&utm_source=qr" animationType="bounce">INSTAGRAM</AnimatedLink>
-        <AnimatedLink href="https://twitter.com" animationType="bounce">TWITTER</AnimatedLink>
+        <AnimatedLink href="https://x.com/dhruv_cdlxv" animationType="bounce">TWITTER</AnimatedLink>
         <AnimatedLink href="https://www.linkedin.com/in/dhruv-sathe-100b9428b" animationType="bounce">LINKEDIN</AnimatedLink>
       </div>
     </motion.div>
