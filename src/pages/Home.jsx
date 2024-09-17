@@ -4,7 +4,7 @@ import Header from '../MyComponents/Navigation/Header'
 
 import HeroSection from '../MyComponents/Hero/HeroSection'
 import AboutSection from '../MyComponents/About/AboutSection'
-import ProjectsSection from '../MyComponents/Projects/ProjectsSection'
+import ProjectsSectionPage from '../MyComponents/Projects/ProjectsSectionPage'
 import ContactSection from '../MyComponents/Contact/ContactSection'
 import Footer from '../MyComponents/Footer/Footer'
 
@@ -29,8 +29,8 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <ContactSection />
-        <ProjectsSection />
       </div>
+      {/* <ProjectsSectionPage /> */}
       <Footer />
     </div>
   )

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header({ isMobile }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const navItems = ['HOME', 'PROJECTS', 'ABOUT', 'CONTACT']
+  const navItems = ['Home', 'My Work', 'About', 'Contact']
 
   const getNavHref = (item) => {
     return item.toLowerCase() === 'home' ? '/' : `/${item.toLowerCase()}`
@@ -26,7 +26,7 @@ export default function Header({ isMobile }) {
         </button>
       ) : (
         <nav className="bg-white bg-opacity-20 backdrop-blur-lg rounded-full px-6 py-2">
-          <ul className="flex space-x-6">
+          <ul className="flex space-x-7">
             {navItems.map((item) => (
               <li key={item}>
                 <a
