@@ -1,5 +1,5 @@
 'use client'
-import myImage from '../../assets/Dhruv.jpg'
+import myImage from '../../assets/Dhruv.png'
 import { motion } from 'framer-motion'
 
 

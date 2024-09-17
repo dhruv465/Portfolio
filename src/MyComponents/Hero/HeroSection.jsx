@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Robo from '../../assets/Robo.png'
-import myImage from '../../assets/Dhruv.jpg'
+import myImage from '../../assets/Dhruv.png'
 
 export default function HeroSection() {
   return (

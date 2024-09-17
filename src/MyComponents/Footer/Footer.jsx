@@ -7,8 +7,11 @@ const AnimatedLink = ({ href, children, animationType = 'default' }) => {
   const [isClicked, setIsClicked] = useState(false)
 
   const handleClick = (e) => {
-
+    e.preventDefault()
     setIsClicked(true)
+    setTimeout(() => {
+      window.location.href = href
+    }, 2500)
   }
 
   const handleClose = () => {
