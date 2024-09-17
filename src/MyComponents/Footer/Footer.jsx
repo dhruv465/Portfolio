@@ -1,27 +1,99 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { X } from 'lucide-react'
 
-const AnimatedLink = ({ href, children }) => {
+const AnimatedLink = ({ href, children, animationType = 'default' }) => {
   const [isHovered, setIsHovered] = useState(false)
   const [isClicked, setIsClicked] = useState(false)
 
   const handleClick = (e) => {
-    e.preventDefault()
+
     setIsClicked(true)
-    setTimeout(() => {
-      window.location.href = href
-    }, 1500) // Redirect after 1.5 seconds
   }
 
-  const variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
+  const handleClose = () => {
+    setIsClicked(false)
   }
 
-  const letterVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0 },
+  const getLetterVariants = (type) => {
+    switch (type) {
+      case 'wave':
+        return {
+          hidden: { y: 20, opacity: 0 },
+          visible: i => ({
+            y: 0,
+            opacity: 1,
+            transition: {
+              delay: i * 0.05,
+              y: { type: 'spring', stiffness: 100 },
+              opacity: { duration: 0.2 }
+            }
+          })
+        }
+      case 'bounce':
+        return {
+          hidden: { y: -20, opacity: 0 },
+          visible: i => ({
+            y: 0,
+            opacity: 1,
+            transition: {
+              delay: i * 0.1,
+              y: { type: 'spring', stiffness: 300, damping: 10 },
+              opacity: { duration: 0.2 }
+            }
+          })
+        }
+      case 'rubber':
+        return {
+          hidden: { scaleY: 0, originY: 0.5 },
+          visible: i => ({
+            scaleY: 1,
+            transition: {
+              delay: i * 0.05,
+              scaleY: { type: 'spring', stiffness: 300, damping: 10 }
+            }
+          })
+        }
+      case 'flip':
+        return {
+          hidden: { rotateX: -90, opacity: 0 },
+          visible: i => ({
+            rotateX: 0,
+            opacity: 1,
+            transition: {
+              delay: i * 0.07,
+              rotateX: { type: 'spring', stiffness: 100, damping: 10 },
+              opacity: { duration: 0.2 }
+            }
+          })
+        }
+      default:
+        return {
+          hidden: { opacity: 0, y: 50 },
+          visible: i => ({
+            opacity: 1,
+            y: 0,
+            transition: { delay: i * 0.05 }
+          })
+        }
+    }
+  }
+
+  const letterVariants = getLetterVariants(animationType)
+
+  const clickedLetterVariants = {
+    hidden: { opacity: 0, y: 50, rotate: -180 },
+    visible: i => ({
+      opacity: 1,
+      y: 0,
+      rotate: 0,
+      transition: {
+        delay: i * 0.1,
+        type: "spring",
+        stiffness: 100,
+        damping: 10
+      }
+    })
   }
 
   return (
@@ -32,6 +104,8 @@ const AnimatedLink = ({ href, children }) => {
     >
       <motion.a
         href={href}
+        // target="_blank"
+        rel="noopener noreferrer"
         className="relative z-10 block py-2 px-4"
         onClick={handleClick}
         whileHover={{ scale: 1.1 }}
@@ -43,14 +117,13 @@ const AnimatedLink = ({ href, children }) => {
               className="block"
               initial="hidden"
               animate="visible"
-              exit="exit"
-              variants={variants}
+              exit="hidden"
             >
               {children.split('').map((letter, index) => (
                 <motion.span
                   key={index}
+                  custom={index}
                   variants={letterVariants}
-                  transition={{ delay: index * 0.05 }}
                   className="inline-block"
                 >
                   {letter}
@@ -86,15 +159,34 @@ const AnimatedLink = ({ href, children }) => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.5 }}
             >
-              <motion.span
-                className="text-white text-4xl font-bold"
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
+              <motion.div
+                className="text-white text-6xl font-bold"
+                initial="hidden"
+                animate="visible"
               >
-                {children}
-              </motion.span>
+                {children.split('').map((letter, index) => (
+                  <motion.span
+                    key={index}
+                    custom={index}
+                    variants={clickedLetterVariants}
+                    className="inline-block"
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </motion.div>
             </motion.div>
+            <motion.button
+              className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-white text-indigo-500 p-2 rounded-full z-50"
+              onClick={handleClose}
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <X size={24} />
+            </motion.button>
           </>
         )}
       </AnimatePresence>
@@ -111,9 +203,9 @@ export default function Footer() {
       transition={{ duration: 0.5, delay: 1 }}
     >
       <div className="flex justify-between items-center">
-        <AnimatedLink href="https://www.instagram.com/dhruv__cdlxv.pvt/?igsh=MW16eHZoNzR0d3Y1bw%3D%3D&utm_source=qr" className="hover:underline">INSTAGRAM</AnimatedLink>
-        <AnimatedLink href="https://twitter.com" className="hover:underline">TWITTER</AnimatedLink>
-        <AnimatedLink href="https://linkedin.com" className="hover:underline">LINKEDIN</AnimatedLink>
+        <AnimatedLink href="https://www.instagram.com/dhruv__cdlxv.pvt/?igsh=MW16eHZoNzR0d3Y1bw%3D%3D&utm_source=qr" animationType="bounce">INSTAGRAM</AnimatedLink>
+        <AnimatedLink href="https://twitter.com" animationType="bounce">TWITTER</AnimatedLink>
+        <AnimatedLink href="https://www.linkedin.com/in/dhruv-sathe-100b9428b" animationType="bounce">LINKEDIN</AnimatedLink>
       </div>
     </motion.div>
   )
