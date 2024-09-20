@@ -4,17 +4,30 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header({ isMobile }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const navItems = ['Home', 'My Work', 'About', 'Contact']
+  const navItems = ['Home', 'Projects', 'Testimonials', 'FAQs', 'Contact Me']
 
   const getNavHref = (item) => {
-    return item.toLowerCase() === 'home' ? '/' : `/${item.toLowerCase()}`
+    switch (item.toLowerCase()) {
+      case 'home':
+        return '#home'
+      case 'projects':
+        return '#projects'
+      case 'testimonials':
+        return '#testimonials'
+      case 'faqs':
+        return '#faq'
+      case 'contact me':
+        return '#contact'
+      default:
+        return '#'
+    }
   }
 
   return (
     <header className="flex justify-between items-center mb-8 relative bg-indigo-100 p-8 rounded-3xl">
       <h1 className="text-2xl font-logo">
         <span className="italic">Dhruv</span>
-        <span className='font-bold'>_cdlxv</span>
+        {/* <span className='font-bold'>_cdlxv</span> */}
       </h1>
       {isMobile ? (
         <button
@@ -25,7 +38,7 @@ export default function Header({ isMobile }) {
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       ) : (
-        <nav className="bg-white bg-opacity-20 backdrop-blur-lg rounded-full px-6 py-2">
+        <nav className=" px-6 py-2">
           <ul className="flex space-x-7">
             {navItems.map((item) => (
               <li key={item}>

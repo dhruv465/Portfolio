@@ -38,21 +38,26 @@ export default function ProjectsSection() {
   }
 
   return (
-    <motion.div
-      className="bg-indigo-100 p-6 md:p-8 rounded-3xl col-span-1 md:col-span-2 lg:col-span-3"
+   
+
+    <motion.div  id="projects"
+      className="p-6 md:p-8 rounded-3xl col-span-1 md:col-span-2 lg:col-span-3 mt-8"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.8 }}
     >
       <motion.h2
-        className="text-3xl font-bold mb-6"
+        className="text-3xl font-bold mb-12 flex items-center gap-6 "
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        Projects
+        <span>Some of My Recent Projects</span>
+        <svg width="122" height="24" viewBox="0 0 122 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M121.061 13.0607C121.646 12.4749 121.646 11.5251 121.061 10.9393L111.515 1.3934C110.929 0.807611 109.979 0.807611 109.393 1.3934C108.808 1.97919 108.808 2.92893 109.393 3.51472L117.879 12L109.393 20.4853C108.808 21.0711 108.808 22.0208 109.393 22.6066C109.979 23.1924 110.929 23.1924 111.515 22.6066L121.061 13.0607ZM0 13.5H120V10.5H0V13.5Z" fill="black" />
+        </svg>
       </motion.h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {projectCards.map((project, index) => (
           <motion.div
             key={project.title}
@@ -115,5 +120,6 @@ export default function ProjectsSection() {
         ))}
       </div>
     </motion.div>
+   
   )
 }

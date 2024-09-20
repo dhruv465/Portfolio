@@ -6,8 +6,8 @@ import myImage from '../../assets/Dhruv.png'
 export default function HeroSection() {
   return (
     <>
-      <motion.div
-        className="bg-indigo-100 p-8 rounded-3xl col-span-1 md:col-span-2 row-span-2"
+      <motion.div id="home"
+        className="bg-indigo-100 p-8 rounded-3xl col-span-1 md:col-span-2 row-span-2 lg:mt-12 lg:mb-12"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -23,12 +23,12 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div
-        className="bg-beige-100 rounded-3xl overflow-hidden row-span-2"
+        className="bg-indig-100 rounded-3xl overflow-hidden row-span-2"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <img src={myImage} alt="Dhruv" className="object-cover" />
+        <img src={myImage} alt="Dhruv" className="object-cover w-full h-full" />
       </motion.div>
     </>
   )
