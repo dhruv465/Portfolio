@@ -37,7 +37,7 @@ export default function Component() {
               key={index}
               initial={false}
               animate={{ backgroundColor: openIndex === index ? "#E0E7FF" : "#E0E7FF" }}
-              className="rounded-3xl overflow-hidden shadow-md p-6"
+              className="rounded-3xl overflow-hidden p-6"
             >
               <button
                 onClick={() => toggleFAQ(index)}

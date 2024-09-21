@@ -34,7 +34,7 @@ export default function Component() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Write your message here"
-              className="w-full h-40 p-4 text-lg border border-gray-300 rounded-3xl focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+              className="w-full h-40 p-4 text-lg border border-gray-300 rounded-3xl focus:outline-none focus:ring-1 focus:ring-indigo-500 resize-none"
               required
             />
           </motion.div>
@@ -48,7 +48,7 @@ export default function Component() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full flex items-center space-x-2 focus:outline-none "
             >
               <span>Send</span>
               <ArrowUpRight className="w-5 h-5" />

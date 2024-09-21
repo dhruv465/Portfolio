@@ -3,11 +3,12 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import Avatar from '../../assets/avatar.png'
 
 const testimonials = [
   {
-    name: "Name of the Person",
-    jobTitle: "Job Title",
+    name: "Jhon Doe",
+    jobTitle: "CEO",
     content: "I hope you're doing well! I'm excited to be launching my portfolio website soon and would love to showcase the amazing work we've done together. Could you spare a moment to write a short, two-liner testimonial about your experience collaborating with me? It would mean a lot, and I'd love to share your feedback with the world!"
   },
   {
@@ -47,7 +48,7 @@ export default function Component() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="text-4xl font-bold mb-8"
+        className="text-4xl font-bold mb-8 text-center"
       >
         What People Say About Me
       </motion.h3>
@@ -55,7 +56,7 @@ export default function Component() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="w-full max-w-4xl p-8 bg-indigo-100 rounded-3xl shadow-lg"
+        className="w-full max-w-4xl p-8 bg-indigo-100 rounded-3xl"
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -77,7 +78,7 @@ export default function Component() {
               {/* Copy-paste the above message & send it to your clients, asking for the feedback and showcase it here. */}
             </p>
             <div className="flex items-center">
-              <div className="w-12 h-12 bg-indigo-200 rounded-full mr-4"></div>
+              <div className="w-12 h-12 bg-indigo-200 rounded-full mr-4"> <img src={Avatar} alt="" /></div>
               <div>
                 <h4 className="font-semibold">{testimonials[currentIndex].name}</h4>
                 <p className="text-sm text-gray-600">{testimonials[currentIndex].jobTitle}</p>

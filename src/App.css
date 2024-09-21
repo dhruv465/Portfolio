@@ -1,11 +1,24 @@
-body{
+body {
     background-color: #EEF2FF;
-    font-family: 'GilroyRegular',Helvetica;
+    font-family: 'GilroyRegular', Helvetica;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
 }
+
 html {
     scroll-behavior: smooth;
-  }
-  
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scrollbar-width: none;
+}
+
+body {
+    -ms-overflow-style: none;
+}

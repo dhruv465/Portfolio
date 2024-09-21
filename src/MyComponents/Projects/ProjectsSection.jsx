@@ -52,7 +52,7 @@ export default function ProjectsSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <span>Some of My Recent Projects</span>
+        <span className=''>Some of My Recent Projects</span>
         <svg width="122" height="24" viewBox="0 0 122 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M121.061 13.0607C121.646 12.4749 121.646 11.5251 121.061 10.9393L111.515 1.3934C110.929 0.807611 109.979 0.807611 109.393 1.3934C108.808 1.97919 108.808 2.92893 109.393 3.51472L117.879 12L109.393 20.4853C108.808 21.0711 108.808 22.0208 109.393 22.6066C109.979 23.1924 110.929 23.1924 111.515 22.6066L121.061 13.0607ZM0 13.5H120V10.5H0V13.5Z" fill="black" />
         </svg>
@@ -62,7 +62,7 @@ export default function ProjectsSection() {
           <motion.div
             key={project.title}
             ref={(el) => (cardRefs.current[index] = el)}
-            className="bg-white rounded-3xl overflow-hidden shadow-lg transition-all duration-300 ease-in-out relative"
+            className="bg-white rounded-3xl overflow-hidden transition-all duration-300 ease-in-out relative"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -77,7 +77,7 @@ export default function ProjectsSection() {
                   className="w-full h-64 object-cover transition-transform duration-300 ease-in-out"
                 />
                 <motion.div
-                  className="absolute top-4 right-4 bg-white rounded-full p-2 drop-shadow-2xl shadow-2xl"
+                  className="absolute top-4 right-4 bg-white rounded-full p-2 "
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+// import Robo from '../../assets/Robo.png'
 
 export default function Header({ isMobile }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -26,6 +27,7 @@ export default function Header({ isMobile }) {
   return (
     <header className="flex justify-between items-center mb-8 relative bg-indigo-100 p-8 rounded-3xl">
       <h1 className="text-2xl font-logo">
+      {/* <img src={Robo} alt="Robo" className="w-12 h-12" /> */}
         <span className="italic">Dhruv</span>
         {/* <span className='font-bold'>_cdlxv</span> */}
       </h1>
