@@ -40,7 +40,7 @@ export default function Component() {
     e.preventDefault();
     setLoading(true); // Show button loading animation
 
-    fetch("https://portfolio-m4r9oesff-dhruv465s-projects.vercel.app/send-email", {
+    fetch("http://localhost:5000/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
