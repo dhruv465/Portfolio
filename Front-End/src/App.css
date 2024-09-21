@@ -11,7 +11,7 @@ html {
     scroll-behavior: smooth;
 }
 
-body::-webkit-scrollbar {
+body & textarea::-webkit-scrollbar {
     display: none;
 }
 
@@ -23,6 +23,18 @@ body {
     -ms-overflow-style: none;
 }
 
-body::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb {
     display: none;
+}
+
+textarea::-webkit-scrollbar {
+    display: none;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+textarea {
+    -ms-overflow-style: none;
 }
