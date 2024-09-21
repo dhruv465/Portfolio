@@ -40,7 +40,7 @@ export default function Component() {
     e.preventDefault();
     setLoading(true); // Show button loading animation
 
-    fetch("http://localhost:5000/send-email", {
+    fetch("https://portfolio-d10i.onrender.com/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
