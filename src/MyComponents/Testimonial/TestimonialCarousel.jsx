@@ -56,7 +56,7 @@ export default function Component() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="w-full max-w-4xl p-8 bg-indigo-100 rounded-3xl"
+        className="w-full max-w-4xl p-8 bg-indigo-100 rounded-3xl testimonials-section"
       >
         <AnimatePresence mode="wait">
           <motion.div

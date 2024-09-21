@@ -1,43 +1,55 @@
-
 /* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
- 
-@font-face {
-    font-family: "GilroyRegular";
-    src: local("GilroyRegular"),
-      url("./fonts/Gilroy-Regular.ttf") format("opentype");
-    font-weight: normal;
-  }
 
-  .font-logo {
-    color: #000000;
-    font-family: "GilroyRegular", Helvetica;
+@font-face {
+  font-family: "GilroyRegular";
+  src: local("GilroyRegular"),
+    url("./fonts/Gilroy-Regular.ttf") format("opentype");
+  font-weight: normal;
+}
+
+.font-logo {
+  color: #000000;
+  font-family: "GilroyRegular", Helvetica;
 }
 
 .menu {
-    font-family: "GilroyRegular", Helvetica;
-    font-weight: 300;
-    color: 'black';
-    fontSize: 16;
-    wordWrap: 'break-word'
+  font-family: "GilroyRegular", Helvetica;
+  font-weight: 300;
+  color: 'black';
+  fontSize: 16;
+  wordWrap: 'break-word'
 
 }
 
 .title-card {
-    color: var(--Text, #000);
-    font-family: "Manrope", sans-serif;
-    font-weight: 700;
-    line-height: 100%;
-    /* 56px */
+  color: var(--Text, #000);
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  line-height: 100%;
+  /* 56px */
 }
 
 .Architecture {
   font-family: "Manrope", sans-serif;
   font-style: italic;
-    font-weight: 300;
-    line-height: 100%;
+  font-weight: 300;
+  line-height: 100%;
 }
+
+.About-Container {
+  padding: 100px 50px 100px 50px;
+  gap: 10px;
+}
+
+.About-Description {
+  font-size: 44px;
+  line-height: 60.1px;
+  text-align: center;
+  font-weight: 400;
+}
+

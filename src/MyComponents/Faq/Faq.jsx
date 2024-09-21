@@ -31,7 +31,7 @@ export default function Component() {
       <div className="w-full max-w-3xl">
         <h1 className="text-4xl font-bold text-center mb-2">FAQs</h1>
         <h2 className="text-2xl font-semibold text-center mb-8">I've got you covered...</h2>
-        <div className="space-y-6">
+        <div className="space-y-6 faq-section">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
