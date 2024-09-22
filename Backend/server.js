@@ -21,13 +21,13 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post('/send-email', (req, res) => {
-  const { message } = req.body;
+  const { email, message } = req.body;
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: process.env.EMAIL_USER, 
-    subject: 'Request for webdevelopment services',
-    text: message,
+    subject: 'Request for web development services',
+    text: `From: ${email}\n\nMessage: ${message}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
