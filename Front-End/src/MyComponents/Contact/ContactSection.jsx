@@ -56,7 +56,7 @@ export default function Component() {
           setTimeout(() => {
             setMessage("");
             setSubmitted(false);
-          }, 1500);
+          }, 2500);
         } else {
           showToast(false);
         }
