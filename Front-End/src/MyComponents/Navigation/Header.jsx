@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header({ isMobile }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const navItems = ['Home', 'Projects', 'Testimonials', 'FAQs', 'Contact Me']
+  const navItems = ['Home', 'Projects', 'FAQs', 'Contact Me']
 
   const getNavHref = (item) => {
     switch (item.toLowerCase()) {

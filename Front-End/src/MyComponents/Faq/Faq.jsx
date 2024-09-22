@@ -7,15 +7,15 @@ import { Plus, X } from 'lucide-react'
 const faqs = [
   {
     question: "How do I contact you for inquiries or collaborations?",
-    answer: "Best the average blind and that accordingly pointing, out the to bold, good my believed the rattling experiments friends couldn't scolded unable to many line may their times, propitiously is themselves, was discipline the be the seen escape."
+    answer: "You can directly drop me a message to connect with or simply email me at dhruv.sathe11@gmail.com"
   },
   {
     question: "What services does your digital agency offer?",
-    answer: "Our digital agency offers a wide range of services including web design, development, SEO, content marketing, and social media management. We tailor our solutions to meet the unique needs of each client."
+    answer: "Our digital agency offers a wide range of services including web design, development, SEO. We tailor our solutions to meet the unique needs of each client."
   },
   {
     question: "How long does it take to build a website?",
-    answer: "The time it takes to build a website varies depending on the complexity of the project. A simple website might take 2-4 weeks, while a more complex one could take 2-3 months or more. We'll provide a detailed timeline during our initial consultation."
+    answer: "The time it takes to build a website varies depending on the complexity of the project. A simple website might take 1-2 weeks, while a more complex one could take 2-3 months or more. We'll provide a detailed timeline during our initial consultation."
   },
 ]
 

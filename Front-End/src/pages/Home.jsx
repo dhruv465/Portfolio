@@ -109,7 +109,7 @@ export default function Home() {
       </div>
       <AboutSection />
       <ProjectsSection />
-      <TestimonialCarousel />
+      {/* <TestimonialCarousel /> */}
       <Faq />
       <ContactSection />
       <Footer />
