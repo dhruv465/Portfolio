@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, CheckCircle, XCircle, Loader2 } from "lucide-react";
@@ -5,9 +7,10 @@ import { toast } from "react-hot-toast";
 import Avatar from '../../assets/Dhruv-Avatar.png';
 
 export default function Component() {
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false); // For button loading animation
+  const [loading, setLoading] = useState(false);
 
   const soilParticleAnimation = {
     hidden: { opacity: 1, x: 0, y: 0, scale: 1 },
@@ -36,24 +39,43 @@ export default function Component() {
     visible: { scale: 1, transition: { type: "spring", stiffness: 500, damping: 10 } },
   };
 
+  const formVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5,
+        when: "beforeChildren",
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   const sendEmail = (e) => {
     e.preventDefault();
-    setLoading(true); // Show button loading animation
+    setLoading(true);
 
     fetch("https://portfolio-d10i.onrender.com/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ email, message }),
     })
       .then((response) => response.json())
       .then((data) => {
-        setLoading(false); // Stop button loading animation
+        setLoading(false);
         if (data.message === "Email sent successfully") {
           showToast(true);
           setSubmitted(true);
           setTimeout(() => {
+            setEmail("");
             setMessage("");
             setSubmitted(false);
           }, 2500);
@@ -62,7 +84,7 @@ export default function Component() {
         }
       })
       .catch(() => {
-        setLoading(false); // Stop button loading animation
+        setLoading(false);
         showToast(false);
       });
   };
@@ -122,20 +144,53 @@ export default function Component() {
   return (
     <div id="contact" className="mt-12 flex items-center justify-center p-4">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        initial="hidden"
+        animate="visible"
+        variants={formVariants}
         className="w-full max-w-2xl"
       >
-        <h1 className="text-4xl font-bold text-center mb-2">Got a project idea?</h1>
-        <h2 className="text-2xl font-semibold text-center mb-8">Drop me a message..</h2>
+        <motion.h1 variants={itemVariants} className="text-4xl font-bold text-center mb-2">Got a project idea?</motion.h1>
+        <motion.h2 variants={itemVariants} className="text-2xl font-semibold text-center mb-8">Drop me a message..</motion.h2>
         <form onSubmit={sendEmail} className="space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <motion.div>
+          <motion.div variants={itemVariants}>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {submitted ? (
+                <motion.div className="w-full p-4 text-lg border border-gray-300 rounded-3xl bg-white overflow-hidden flex flex-wrap">
+                  {email.split("").map((letter, index) => (
+                    <motion.span
+                      key={index}
+                      custom={index}
+                      variants={soilParticleAnimation}
+                      initial="hidden"
+                      animate="visible"
+                      className="inline-block"
+                      style={{ display: "inline-block", fontSize: "20px", margin: "2px" }}
+                    >
+                      {letter}
+                    </motion.span>
+                  ))}
+                </motion.div>
+              ) : (
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email address"
+                  className="w-full p-4 text-lg border border-gray-300 rounded-3xl focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  required
+                />
+              )}
+            </motion.div>
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
               {submitted ? (
                 <motion.div className="w-full h-40 p-4 text-lg border border-gray-300 rounded-3xl bg-white overflow-hidden flex flex-wrap">
                   {message.split("").map((letter, index) => (
