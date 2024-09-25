@@ -12,10 +12,10 @@ export default function ProjectsSection() {
   const cardRefs = useRef([])
 
   const projectCards = [
-    { title: 'Niri Global', description: 'Innovative AI-driven architecture design platform', image: Niri, link: 'https://niriglobal.com' },
+    { title: 'Niri Global', description: 'Provider of software services', image: Niri, link: 'https://niriglobal.com' },
     { title: 'GT Financial Services', description: 'Cutting-edge fintech solutions for modern banking', image: GT, link: 'https://gtfinancialservices.in' },
-    { title: 'Synergy Institute', description: 'Advanced research facility for sustainable energy', image: Synergy, link: 'https://synergyinstitutes.com' },
-    { title: 'Devruks Globalization', description: 'Global expansion strategies for tech startups', image: Devruks, link: 'https://devruks.com' },
+    { title: 'Synergy Institute', description: 'College for the future of education', image: Synergy, link: 'https://synergyinstitutes.com' },
+    { title: 'Devruks Globalization', description: 'Cutting-edge fintech solutions for modern banking', image: Devruks, link: 'https://devruks.com' },
   ]
 
   const handleMouseMove = (event, index) => {
