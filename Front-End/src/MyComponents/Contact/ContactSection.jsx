@@ -107,7 +107,7 @@ export default function Component() {
                     {success ? (
                       <img
                         className="h-10 w-10 rounded-full"
-                        src={Avatar}
+                        src="https://res.cloudinary.com/dvfrcaw1c/image/upload/v1727845323/dnt3ejgbynlihcfzo4ka.png"
                         alt="Avatar"
                       />
                     ) : (

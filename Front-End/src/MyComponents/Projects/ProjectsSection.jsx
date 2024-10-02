@@ -12,10 +12,10 @@ export default function ProjectsSection() {
   const cardRefs = useRef([])
 
   const projectCards = [
-    { title: 'Niri Global', description: 'Provider of software services', image: Niri, link: 'https://niriglobal.com' },
-    { title: 'GT Financial Services', description: 'Cutting-edge fintech solutions for modern banking', image: GT, link: 'https://gtfinancialservices.in' },
-    { title: 'Synergy Institute', description: 'College for the future of education', image: Synergy, link: 'https://synergyinstitutes.com' },
-    { title: 'Devruks Globalization', description: 'Cutting-edge fintech solutions for modern banking', image: Devruks, link: 'https://devruks.com' },
+    { title: 'Niri Global', description: 'Provider of software services', image: 'https://res.cloudinary.com/dvfrcaw1c/image/upload/v1727845325/svfndwyjpmiieaeoriyd.png', link: 'https://niriglobal.com' },
+    { title: 'GT Financial Services', description: 'Cutting-edge fintech solutions for modern banking', image: 'https://res.cloudinary.com/dvfrcaw1c/image/upload/v1727845324/tpzin0k1cibvcuhcxp0x.png', link: 'https://gtfinancialservices.in' },
+    { title: 'Synergy Institute', description: 'College for the future of education', image: 'https://res.cloudinary.com/dvfrcaw1c/image/upload/v1727845325/jhtey6pdbnjzkqeqnphm.png', link: 'https://synergyinstitutes.com' },
+    { title: 'Devruks Globalization', description: 'Cutting-edge fintech solutions for modern banking', image: 'https://res.cloudinary.com/dvfrcaw1c/image/upload/v1727845324/pxwby98uwhqavrd5avwa.png', link: 'https://devruks.com' },
   ]
 
   const handleMouseMove = (event, index) => {
@@ -38,9 +38,9 @@ export default function ProjectsSection() {
   }
 
   return (
-   
 
-    <motion.div  id="projects"
+
+    <motion.div id="projects"
       className="p-6 md:p-8 rounded-3xl col-span-1 md:col-span-2 lg:col-span-3 mt-8"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
@@ -120,6 +120,6 @@ export default function ProjectsSection() {
         ))}
       </div>
     </motion.div>
-   
+
   )
 }

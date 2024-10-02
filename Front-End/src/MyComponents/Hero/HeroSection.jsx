@@ -13,7 +13,7 @@ export default function HeroSection() {
         transition={{ duration: 0.5 }}
       >
         <div className="mb-4">
-          <img src={Robo} alt="Robo" className="w-16 h-16" />
+          <img src="https://res.cloudinary.com/dvfrcaw1c/image/upload/v1727845117/dtpebkaltqmgdwgarjie.png" alt="Robo" className="w-16 h-16" />
         </div>
         <h2 className="text-4xl md:text-6xl font-extrabold leading-tight title-card">
           Dev Revolutionizing<br />
@@ -28,7 +28,7 @@ export default function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <img src={myImage} alt="Dhruv" className="object-cover w-full h-full" />
+        <img src="https://res.cloudinary.com/dvfrcaw1c/image/upload/v1727844899/nfiqbipqzllz5cs1ckew.png" alt="Dhruv" className="object-cover w-full h-full" />
       </motion.div>
     </>
   )
