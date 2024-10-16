@@ -111,7 +111,7 @@ export default function ProjectsSection() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    View Project <ExternalLink className="ml-2 w-4 h-4" />
+                    View Site <ExternalLink className="ml-2 w-4 h-4" />
                   </motion.a>
                 </motion.div>
               )}
