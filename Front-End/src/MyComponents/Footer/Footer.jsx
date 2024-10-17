@@ -46,8 +46,8 @@ export default function Footer() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.5 }}
-          className="inline-block"
-        >
+          className="inline-block p-2 rounded-full bg-blue-100 hover:bg-blue-200 transition-colors"
+          >
           <Linkedin className="w-6 h-6 text-blue-600 hover:text-blue-800 transition-colors" />
         </motion.a>
       </motion.div>
