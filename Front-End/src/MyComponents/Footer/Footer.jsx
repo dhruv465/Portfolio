@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Linkedin } from 'lucide-react'
 import myImage from '../../assets/Dhruv.png'
 
 export default function Footer() {
@@ -31,13 +32,24 @@ export default function Footer() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.6, type: "spring", stiffness: 260, damping: 20 }}
-          className="w-16 h-16 mx-auto rounded-full overflow-hidden"
+          className="w-16 h-16 mx-auto rounded-full overflow-hidden mb-2"
         >
           <img
             src={myImage} alt="Dhruv"
             className="w-full h-full object-cover"
           />
         </motion.div>
+        <motion.a
+          href="https://www.linkedin.com/in/dhruv-sathe-100b9428b"
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+          className="inline-block"
+        >
+          <Linkedin className="w-6 h-6 text-blue-600 hover:text-blue-800 transition-colors" />
+        </motion.a>
       </motion.div>
     </footer>
   )
