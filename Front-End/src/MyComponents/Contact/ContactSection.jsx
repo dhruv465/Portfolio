@@ -1,10 +1,9 @@
-'use client'
+"use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Loader2, XCircle } from "lucide-react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
-import Avatar from '../../assets/Dhruv-Avatar.png';
 
 export default function Component() {
   const [email, setEmail] = useState("");
@@ -36,25 +35,28 @@ export default function Component() {
 
   const iconVariants = {
     hidden: { scale: 0 },
-    visible: { scale: 1, transition: { type: "spring", stiffness: 500, damping: 10 } },
+    visible: {
+      scale: 1,
+      transition: { type: "spring", stiffness: 500, damping: 10 },
+    },
   };
 
   const formVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.5,
         when: "beforeChildren",
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: { opacity: 1, y: 0 },
   };
 
   const sendEmail = (e) => {
@@ -98,12 +100,16 @@ export default function Component() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5"
+            className="max-w-md w-full bg-white shadow-lg rounded-3xl pointer-events-auto flex ring-1 ring-black ring-opacity-5"
           >
             <div className="flex-1 w-0 p-4">
               <div className="flex items-start">
                 <div className="flex-shrink-0 pt-0.5">
-                  <motion.div variants={iconVariants} initial="hidden" animate="visible">
+                  <motion.div
+                    variants={iconVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
                     {success ? (
                       <img
                         className="h-10 w-10 rounded-full"
@@ -130,7 +136,7 @@ export default function Component() {
             <div className="flex border-l border-gray-200">
               <button
                 onClick={() => toast.dismiss(t.id)}
-                className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none"
               >
                 Close
               </button>
@@ -149,14 +155,21 @@ export default function Component() {
         variants={formVariants}
         className="w-full max-w-2xl"
       >
-        <motion.h1 variants={itemVariants} className="text-4xl font-bold text-center mb-2">Got a project idea?</motion.h1>
-        <motion.h2 variants={itemVariants} className="text-2xl font-semibold text-center mb-8">Drop me a message..</motion.h2>
+        <motion.h1
+          variants={itemVariants}
+          className="text-4xl font-bold text-center mb-2"
+        >
+          Got a project idea?
+        </motion.h1>
+        <motion.h2
+          variants={itemVariants}
+          className="text-2xl font-semibold text-center mb-8"
+        >
+          Drop me a message..
+        </motion.h2>
         <form onSubmit={sendEmail} className="space-y-6">
           <motion.div variants={itemVariants}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               {submitted ? (
                 <motion.div className="w-full p-4 text-lg border border-gray-300 rounded-3xl bg-white overflow-hidden flex flex-wrap">
                   {email.split("").map((letter, index) => (
@@ -167,7 +180,11 @@ export default function Component() {
                       initial="hidden"
                       animate="visible"
                       className="inline-block"
-                      style={{ display: "inline-block", fontSize: "20px", margin: "2px" }}
+                      style={{
+                        display: "inline-block",
+                        fontSize: "20px",
+                        margin: "2px",
+                      }}
                     >
                       {letter}
                     </motion.span>
@@ -187,10 +204,7 @@ export default function Component() {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               {submitted ? (
                 <motion.div className="w-full h-40 p-4 text-lg border border-gray-300 rounded-3xl bg-white overflow-hidden flex flex-wrap">
                   {message.split("").map((letter, index) => (
@@ -201,7 +215,11 @@ export default function Component() {
                       initial="hidden"
                       animate="visible"
                       className="inline-block"
-                      style={{ display: "inline-block", fontSize: "20px", margin: "2px" }}
+                      style={{
+                        display: "inline-block",
+                        fontSize: "20px",
+                        margin: "2px",
+                      }}
                     >
                       {letter}
                     </motion.span>
@@ -230,14 +248,20 @@ export default function Component() {
               whileTap={{ scale: 0.95 }}
               type="submit"
               disabled={loading} // Disable button when loading
-              className={`px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full flex items-center space-x-2 focus:outline-none ${loading ? "opacity-50" : ""}`}
+              className={`px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full flex items-center space-x-2 focus:outline-none ${
+                loading ? "opacity-50" : ""
+              }`}
             >
               <AnimatePresence>
                 {loading ? (
                   <motion.div
                     initial={{ opacity: 0, rotate: 0 }}
                     animate={{ opacity: 1, rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1,
+                      ease: "linear",
+                    }}
                   >
                     <Loader2 className="w-5 h-5" />
                   </motion.div>
