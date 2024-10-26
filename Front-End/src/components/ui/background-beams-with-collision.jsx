@@ -61,7 +61,64 @@ export const BackgroundBeamsWithCollision = ({
       delay: 2,
       className: "h-6",
     },
+    {
+      initialX: 200,
+      translateX: 200,
+      duration: 8,
+      repeatDelay: 5,
+      delay: 1,
+      className: "h-8",
+    },
+    {
+      initialX: 700,
+      translateX: 700,
+      duration: 6,
+      repeatDelay: 4,
+      delay: 3,
+      className: "h-16",
+    },
+    {
+      initialX: 1100,
+      translateX: 1100,
+      duration: 9,
+      repeatDelay: 6,
+      delay: 2,
+      className: "h-10",
+    },
+    {
+      initialX: 300,
+      translateX: 300,
+      duration: 5,
+      repeatDelay: 3,
+      delay: 1,
+      className: "h-14",
+    },
+    {
+      initialX: 900,
+      translateX: 900,
+      duration: 7,
+      repeatDelay: 5,
+      delay: 4,
+      className: "h-18",
+    },
+    {
+      initialX: 50,
+      translateX: 50,
+      duration: 10,
+      repeatDelay: 4,
+      delay: 2,
+      className: "h-24",
+    },
+    {
+      initialX: 1300,
+      translateX: 1300,
+      duration: 8,
+      repeatDelay: 3,
+      delay: 3,
+      className: "h-16",
+    },
   ];
+
 
   return (
     (<div
@@ -113,7 +170,7 @@ const CollisionMechanism = React.forwardRef(({ parentRef, containerRef, beamOpti
 
         if (beamRect.bottom >= containerRect.top) {
           const relativeX =
-            beamRect.left - parentRect.left + beamRect.width / 2;
+            beamRect.left - parentRect.left + beamRect.width / 4;
           const relativeY = beamRect.bottom - parentRect.top;
 
           setCollision({

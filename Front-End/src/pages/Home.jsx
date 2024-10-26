@@ -1,71 +1,83 @@
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ArrowUp } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
-import AboutSection from '../MyComponents/About/AboutSection'
-import ContactSection from '../MyComponents/Contact/ContactSection'
-import Faq from '../MyComponents/Faq/Faq'
-import Footer from '../MyComponents/Footer/Footer'
-import HeroSection from '../MyComponents/Hero/HeroSection'
-import Header from '../MyComponents/Navigation/Header'
-import ProjectsSection from '../MyComponents/Projects/ProjectsSection'
-import TestimonialCarousel from '../MyComponents/Testimonial/TestimonialCarousel'
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { ArrowUp } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import AboutSection from "../MyComponents/About/AboutSection";
+import ContactSection from "../MyComponents/Contact/ContactSection";
+import Faq from "../MyComponents/Faq/Faq";
+import Footer from "../MyComponents/Footer/Footer";
+import HeroSection from "../MyComponents/Hero/HeroSection";
+import Header from "../MyComponents/Navigation/Header";
+import ProjectsSection from "../MyComponents/Projects/ProjectsSection";
+import TestimonialCarousel from "../MyComponents/Testimonial/TestimonialCarousel";
 
 // Custom hook to get window height
 const useWindowHeight = () => {
-  const [height, setHeight] = useState(0)
+  const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    const updateHeight = () => setHeight(window.innerHeight)
-    updateHeight()
-    window.addEventListener('resize', updateHeight)
-    return () => window.removeEventListener('resize', updateHeight)
-  }, [])
+    const updateHeight = () => setHeight(window.innerHeight);
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
-  return height
-}
+  return height;
+};
 
 export default function Home() {
-  const [isMobile, setIsMobile] = useState(false)
-  const [showScrollToTop, setShowScrollToTop] = useState(false)
+  const [isMobile, setIsMobile] = useState(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
-  const { scrollYProgress } = useScroll()
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
-  const windowHeight = useWindowHeight()
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+  const windowHeight = useWindowHeight();
 
-  const glowingLineY = useTransform(smoothProgress, [0, 1], [0, windowHeight - 32])
-  const glowingLineOpacity = useTransform(smoothProgress, [0, 0.9, 1], [0, 1, 0])
+  const glowingLineY = useTransform(
+    smoothProgress,
+    [0, 1],
+    [0, windowHeight - 32]
+  );
+  const glowingLineOpacity = useTransform(
+    smoothProgress,
+    [0, 0.9, 1],
+    [0, 1, 0]
+  );
 
   useEffect(() => {
     const checkMobile = () => {
-      const isMobile = window.innerWidth < 768
-      setIsMobile(isMobile)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+      const isMobile = window.innerWidth < 768;
+      setIsMobile(isMobile);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Scroll to Top button visibility
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 300) {
-        setShowScrollToTop(true)
+        setShowScrollToTop(true);
       } else {
-        setShowScrollToTop(false)
+        setShowScrollToTop(false);
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Scroll to top function
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
-    })
-  }
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div className="relative min-h-screen bg-indigo-50 p-4 md:p-8 overflow-y-scroll scrollbar-hide">
@@ -76,7 +88,7 @@ export default function Home() {
           className="w-full bg-indigo-500"
           style={{
             scaleY: smoothProgress,
-            transformOrigin: 'top',
+            transformOrigin: "top",
           }}
         />
       </div>
@@ -87,7 +99,7 @@ export default function Home() {
         style={{
           height: windowHeight,
           scaleY: smoothProgress,
-          transformOrigin: 'top',
+          transformOrigin: "top",
           opacity: 0.5,
         }}
       />
@@ -98,7 +110,7 @@ export default function Home() {
         style={{
           y: glowingLineY,
           opacity: glowingLineOpacity,
-          filter: 'blur(4px)',
+          filter: "blur(4px)",
         }}
       />
 
@@ -139,5 +151,5 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  );
 }
