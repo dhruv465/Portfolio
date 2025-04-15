@@ -1,76 +1,77 @@
-/* src/index.css */
-@tailwind base;
-@tailwind components;
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+@import "tailwindcss";
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
 @font-face {
   font-family: "GilroyRegular";
   src: local("GilroyRegular"),
-    url("./fonts/Gilroy-Regular.ttf") format("opentype");
+    url("./fonts/Gilroy-Regular.ttf") format("truetype");
   font-weight: normal;
 }
 
-.font-logo {
-  color: #000000;
-  font-family: "GilroyRegular", Helvetica;
+@layer base {
+  :root {
+    --background-color: #ffffff;
+    --card-bg-color: #f3f4f6;
+    --text-color: #1f2937;
+    --header-text-color: #111827;
+    --accent-color: #4f46e5;
+    --button-bg-color: #e5e7eb;
+    --border-color: #d1d5db;
+    --icon-bg-color: #f9fafb;
+  }
+
+  [data-theme='dark'] {
+    --background-color: #1a1b2e;
+    --card-bg-color: #2b2d42;
+    --text-color: #e0e0e0;
+    --header-text-color: #ffffff;
+    --accent-color: #7069fc;
+    --button-bg-color: #3a3d60;
+    --border-color: #3e4057;
+    --icon-bg-color: #282a36;
+  }
 }
 
-.menu {
-  font-family: "GilroyRegular", Helvetica;
-  font-weight: 300;
-  color: 'black';
-  fontSize: 16;
-  wordWrap: 'break-word'
+@layer components {
+  .font-logo {
+    color: #000000;
+    font-family: "GilroyRegular", Helvetica;
+  }
 
-}
+  .menu {
+    font-family: "GilroyRegular", Helvetica;
+    font-weight: 300;
+    color: black;
+    font-size: 16px;
+    word-wrap: break-word;
+  }
 
-.title-card {
-  color: var(--Text, #000);
-  font-family: "Manrope", sans-serif;
-  font-weight: 700;
-  line-height: 100%;
-  /* 56px */
-}
+  .title-card {
+    color: var(--text-color);
+    font-family: "Manrope", sans-serif;
+    font-weight: 700;
+    line-height: 100%;
+  }
 
-.Architecture {
-  font-family: "Manrope", sans-serif;
-  font-style: italic;
-  font-weight: 300;
-  line-height: 100%;
-}
+  .Architecture {
+    font-family: "Manrope", sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 100%;
+  }
 
-.About-Container {
-  padding: 100px 50px 100px 50px;
-  gap: 10px;
-}
+  .About-Container {
+    padding: 100px 50px;
+    gap: 10px;
+  }
 
-.About-Description {
-  font-size: 44px;
-  line-height: 60.1px;
-  text-align: center;
-  font-weight: 400;
-}
-
-:root {
-  --background-color: #ffffff;
-  --card-bg-color: #f3f4f6;
-  --text-color: #1f2937;
-  --header-text-color: #111827;
-  --accent-color: #4f46e5;
-  --button-bg-color: #e5e7eb;
-  --border-color: #d1d5db;
-  --icon-bg-color: #f9fafb;
-}
-
-[data-theme='dark'] {
-  --background-color: #1a1b2e;
-  --card-bg-color: #2b2d42;
-  --text-color: #e0e0e0;
-  --header-text-color: #ffffff;
-  --accent-color: #7069fc;
-  --button-bg-color: #3a3d60;
-  --border-color: #3e4057;
-  --icon-bg-color: #282a36;
+  .About-Description {
+    font-size: 44px;
+    line-height: 60.1px;
+    text-align: center;
+    font-weight: 400;
+  }
 }
