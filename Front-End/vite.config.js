@@ -35,8 +35,7 @@ export default defineConfig({
         manualChunks: {
           vendor: [
             'react', 
-            'react-dom', 
-            'framer-motion',
+            'react-dom',
             'react-hot-toast'
           ],
           animations: [
