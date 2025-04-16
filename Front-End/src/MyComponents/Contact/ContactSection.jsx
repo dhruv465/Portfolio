@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Send, Loader2, CheckCircle, XCircle, Mail, MapPin } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { ParticleBackground } from "../../components/ui/particle-background";
 import { AnimatedText } from "../../components/ui/animated-text";
+
+// API endpoint configuration
+const API_URL = "https://portfolio-d10i.onrender.com";
+const API_TIMEOUT = 20000; // 20 seconds timeout
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -15,6 +19,35 @@ export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
+  const [serverStatus, setServerStatus] = useState('unknown'); // 'unknown', 'online', 'offline'
+
+  // Check server health when component mounts
+  useEffect(() => {
+    checkServerHealth();
+  }, []);
+
+  const checkServerHealth = async () => {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      
+      const response = await fetch(`${API_URL}/health`, { 
+        method: 'GET',
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (response.ok) {
+        setServerStatus('online');
+      } else {
+        setServerStatus('offline');
+      }
+    } catch (err) {
+      setServerStatus('offline');
+      console.log('Server health check failed:', err);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -37,48 +70,72 @@ export default function ContactSection() {
     setError(false);
   };
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(false);
 
-    fetch("https://portfolio-d10i.onrender.com/send-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ 
-        email: formData.email, 
-        message: formData.message,
-        name: formData.name
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setLoading(false);
-        if (data.message === "Email sent successfully") {
-          setSubmitted(true);
-          // Form will reset after animation completes
-        } else {
-          setError(true);
-          toast.custom((t) => (
-            <div className="flex items-center gap-3 bg-red-50 border border-red-200 px-4 py-3 rounded-lg">
-              <XCircle className="text-red-500" size={18} />
-              <p>Failed to send message. Please try again.</p>
-            </div>
-          ));
-        }
-      })
-      .catch(() => {
-        setLoading(false);
-        setError(true);
-        toast.custom((t) => (
-          <div className="flex items-center gap-3 bg-red-50 border border-red-200 px-4 py-3 rounded-lg">
-            <XCircle className="text-red-500" size={18} />
-            <p>Failed to send message. Please try again.</p>
-          </div>
-        ));
+    // If server is offline based on our health check, notify user
+    if (serverStatus === 'offline') {
+      toast.custom((t) => (
+        <div className="flex items-center gap-3 bg-yellow-50 border border-yellow-200 px-4 py-3 rounded-lg">
+          <Loader2 className="text-yellow-500 animate-spin" size={18} />
+          <p>Server might be warming up. Your message will still be sent. Please wait...</p>
+        </div>
+      ));
+    }
+
+    try {
+      // Create an AbortController to handle timeouts
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
+
+      const response = await fetch(`${API_URL}/send-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          email: formData.email, 
+          message: formData.message,
+          name: formData.name
+        }),
+        signal: controller.signal,
       });
+      
+      // Clear the timeout since the request completed
+      clearTimeout(timeoutId);
+      
+      const data = await response.json();
+      
+      setLoading(false);
+      
+      if (response.ok && data.message === "Email sent successfully") {
+        setSubmitted(true);
+        // Server is definitely online if we got here
+        setServerStatus('online');
+      } else {
+        handleSubmissionError('Server returned an error');
+      }
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        handleSubmissionError('Request timed out. The server might be starting up. Please try again in a minute.');
+      } else {
+        handleSubmissionError('Failed to send message');
+      }
+    }
+  };
+
+  const handleSubmissionError = (errorMsg) => {
+    setLoading(false);
+    setError(true);
+    
+    toast.custom(() => (
+      <div className="flex items-center gap-3 bg-red-50 border border-red-200 px-4 py-3 rounded-lg">
+        <XCircle className="text-red-500" size={18} />
+        <p>{errorMsg}</p>
+      </div>
+    ));
   };
 
   const inputClasses = (field) => `
@@ -384,6 +441,13 @@ export default function ContactSection() {
                       />
                     </motion.div>
                   </div>
+                  
+                  {serverStatus === 'offline' && (
+                    <div className="text-sm text-yellow-600 flex items-center gap-2">
+                      <Loader2 className="animate-spin" size={14} />
+                      <span>Server is warming up. Submission may take a little longer.</span>
+                    </div>
+                  )}
                   
                   <motion.button
                     type="submit"

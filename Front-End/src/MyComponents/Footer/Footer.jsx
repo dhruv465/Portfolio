@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Linkedin, Github, Twitter, ArrowUpRight } from 'lucide-react'
+import { StatusIndicator } from '../../components/ui/status-indicator'
 
 export default function Footer() {
   const socialLinks = [
@@ -59,6 +60,11 @@ export default function Footer() {
                   {social.icon}
                 </motion.a>
               ))}
+            </div>
+            
+            {/* Status Indicator moved here */}
+            <div className="mt-6 pt-4 border-t border-gray-800">
+              <StatusIndicator />
             </div>
           </div>
           

@@ -33,6 +33,17 @@
     --border-color: #3e4057;
     --icon-bg-color: #282a36;
   }
+
+  /* Remove default focus ring from all inputs and form elements */
+  input:focus,
+  textarea:focus,
+  select:focus,
+  button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 @layer components {
