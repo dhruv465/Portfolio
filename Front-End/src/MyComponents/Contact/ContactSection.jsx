@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Send, Loader2, CheckCircle, XCircle, Mail, MapPin } from "lucide-react";
 import { toast } from "react-hot-toast";
@@ -20,19 +20,24 @@ export default function ContactSection() {
   const [error, setError] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
   const [serverStatus, setServerStatus] = useState('unknown'); // 'unknown', 'online', 'offline'
+  const [lastCheck, setLastCheck] = useState(0);
 
-  // Check server health when component mounts
-  useEffect(() => {
-    checkServerHealth();
-  }, []);
-
-  const checkServerHealth = async () => {
+  const checkServerStatus = useCallback(async (retries = 2) => {
+    // Don't spam health checks if we already know the status
+    if (serverStatus === 'online' && Date.now() - lastCheck < 60000) {
+      return;
+    }
+    
+    setServerStatus('unknown');
+    setLastCheck(Date.now());
+    
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-      
-      const response = await fetch(`${API_URL}/health`, { 
+      const response = await fetch(`${API_URL}/health`, {
         method: 'GET',
+        cache: 'no-store',
         signal: controller.signal
       });
       
@@ -43,11 +48,24 @@ export default function ContactSection() {
       } else {
         setServerStatus('offline');
       }
-    } catch (err) {
-      setServerStatus('offline');
-      console.log('Server health check failed:', err);
+    } catch (error) {
+      if (retries > 0) {
+        // If we have retries left, wait and try again
+        // This helps with cold starts where the first request might time out
+        setTimeout(() => {
+          checkServerStatus(retries - 1);
+        }, 3000);
+      } else {
+        console.error('Server health check error:', error);
+        setServerStatus('offline');
+      }
     }
-  };
+  }, [serverStatus, lastCheck]);
+
+  // Check server health when component mounts
+  useEffect(() => {
+    checkServerStatus();
+  }, [checkServerStatus]);
 
   const handleChange = (e) => {
     setFormData({
@@ -75,7 +93,7 @@ export default function ContactSection() {
     setLoading(true);
     setError(false);
 
-    // If server is offline based on our health check, notify user
+    // Better messaging based on server status
     if (serverStatus === 'offline') {
       toast.custom((t) => (
         <div className="flex items-center gap-3 bg-yellow-50 border border-yellow-200 px-4 py-3 rounded-lg">
@@ -83,12 +101,22 @@ export default function ContactSection() {
           <p>Server might be warming up. Your message will still be sent. Please wait...</p>
         </div>
       ));
+    } else if (serverStatus === 'unknown') {
+      toast.custom((t) => (
+        <div className="flex items-center gap-3 bg-blue-50 border border-blue-200 px-4 py-3 rounded-lg">
+          <Loader2 className="text-blue-500 animate-spin" size={18} />
+          <p>Server status unknown. We'll try to send your message anyway...</p>
+        </div>
+      ));
     }
 
     try {
       // Create an AbortController to handle timeouts
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
+      const timeoutId = setTimeout(() => {
+        controller.abort();
+        handleSubmissionError('Request timed out. The server might be starting up. Please try again in a minute.');
+      }, API_TIMEOUT);
 
       const response = await fetch(`${API_URL}/send-email`, {
         method: "POST",
@@ -114,14 +142,20 @@ export default function ContactSection() {
         setSubmitted(true);
         // Server is definitely online if we got here
         setServerStatus('online');
+        toast.custom((t) => (
+          <div className="flex items-center gap-3 bg-green-50 border border-green-200 px-4 py-3 rounded-lg">
+            <CheckCircle className="text-green-500" size={18} />
+            <p>Message sent successfully!</p>
+          </div>
+        ));
       } else {
-        handleSubmissionError('Server returned an error');
+        handleSubmissionError('Server returned an error: ' + (data.error || 'Unknown error'));
       }
     } catch (error) {
       if (error.name === 'AbortError') {
-        handleSubmissionError('Request timed out. The server might be starting up. Please try again in a minute.');
+        // Already handled in the timeout callback
       } else {
-        handleSubmissionError('Failed to send message');
+        handleSubmissionError('Failed to send message: ' + error.message);
       }
     }
   };
@@ -143,6 +177,106 @@ export default function ContactSection() {
     ${focusedField === field ? 'border-black ring-1 ring-black' : 'border-gray-200'} 
     focus:ring-black focus:border-black
   `;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Check server status before attempting submission
+    if (serverStatus === 'unknown') {
+      await checkServerStatus();
+    }
+    
+    // Additional client-side validation
+    if (!name || !email || !message) {
+      toast({
+        title: "Error",
+        description: "Please fill out all required fields",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+    
+    // If server is offline and we're not in development mode
+    if (serverStatus === 'offline' && import.meta.env.MODE === 'production') {
+      toast({
+        title: "Server Unavailable",
+        description: "Our server is currently waking up from sleep mode. Please try again in a few moments.",
+        variant: "warning",
+        duration: 5000,
+      });
+      // Auto retry server health check
+      setTimeout(checkServerStatus, 3000);
+      setIsSubmitting(false);
+      return;
+    }
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
+    
+    try {
+      const response = await fetch(`${API_URL}/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+        }),
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (response.ok) {
+        // Successfully submitted
+        setSuccess(true);
+        resetForm();
+        toast({
+          title: "Message Sent",
+          description: "I'll get back to you soon!",
+          variant: "success",
+        });
+        // Update server status since we know it's responsive
+        setServerStatus('online');
+        setLastCheck(Date.now());
+      } else {
+        const data = await response.json().catch(() => ({}));
+        toast({
+          title: "Error",
+          description: data.message || "Something went wrong. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        toast({
+          title: "Request Timeout",
+          description: "The server took too long to respond. It might be waking up from sleep mode. Please try again.",
+          variant: "warning",
+          duration: 5000,
+        });
+        // Retry the server health check
+        setTimeout(checkServerStatus, 2000);
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to send message. Please try again later.",
+          variant: "destructive",
+        });
+        console.error("Form submission error:", error);
+        // Mark server as potentially offline
+        setServerStatus('unknown');
+        // Re-check server status
+        setTimeout(checkServerStatus, 2000);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-24 md:py-32 relative overflow-hidden">

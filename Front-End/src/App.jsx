@@ -1,10 +1,15 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { AnimatePresence, motion } from 'framer-motion';
 import Loader from './MyComponents/loader/Loader';
+import { preloadCriticalImages } from './lib/imageOptimizer';
+import Home from './pages/Home';
 
-// Lazy load the Home component
-const Home = lazy(() => import('./pages/Home'));
+// List of critical images to preload
+const CRITICAL_IMAGES = [
+  '/src/assets/Dhruv-Avatar.png',
+  '/src/assets/avatar.png'
+];
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -14,14 +19,18 @@ function App() {
     // Add mounted state for client-side animation
     setMounted(true);
     
+    // Preload critical images
+    preloadCriticalImages(CRITICAL_IMAGES);
+    
     // Use requestIdleCallback for non-critical initialization
-    // with a fallback for browsers that don't support it
-    const idleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+    const idleCallback = 
+      window.requestIdleCallback || 
+      ((cb) => setTimeout(cb, 1));
     
     // Start loading immediately but give a minimum perceived loading time
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1200); // Reduced from 2000ms to 1200ms for better UX
+    }, 1000); // Reduced loading time for better UX
 
     return () => {
       clearTimeout(timer);
@@ -39,7 +48,7 @@ function App() {
             key="loader"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }} // Reduced transition time
+            transition={{ duration: 0.3 }}
           >
             <Loader />
           </motion.div>
@@ -48,7 +57,7 @@ function App() {
             key="content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }} // Reduced animation time
+            transition={{ duration: 0.5 }}
             className="bg-transparent"
           >
             <Toaster 
@@ -63,9 +72,7 @@ function App() {
                 },
               }}
             />
-            <Suspense fallback={<Loader />}>
-              <Home />
-            </Suspense>
+            <Home />
           </motion.div>
         )}
       </AnimatePresence>

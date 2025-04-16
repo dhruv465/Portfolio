@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
 import { Linkedin, Github, Twitter, ArrowUpRight } from 'lucide-react'
 import { StatusIndicator } from '../../components/ui/status-indicator'
+import { SiteQualityBadge } from '../../components/ui/site-quality-badge'
+
+// Import performance metrics using lazy loading to avoid content blocker detection
+const PerformanceMetrics = lazy(() => 
+  import('../../components/ui/performance-metrics').then(module => ({
+    default: module.PerformanceMetrics
+  }))
+);
 
 export default function Footer() {
   const socialLinks = [
@@ -113,9 +121,12 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-gray-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm mb-4 md:mb-0">
-            © {currentYear} Dhruv Sathe. All rights reserved.
-          </p>
+          <div className="text-gray-500 text-sm mb-4 md:mb-0">
+            <p>© {currentYear} Dhruv Sathe. All rights reserved.</p>
+            <div className="mt-2 text-xs">
+              <SiteQualityBadge className="text-gray-400" />
+            </div>
+          </div>
           <div className="text-gray-500 text-sm">
             Made with ❤️ in Pune, India
           </div>

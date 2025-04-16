@@ -1,4 +1,6 @@
-user-agent: *
+# robots.txt for dhruv.dev
+User-agent: *
 Allow: /
 
-Sitemap: https://dhruv-alpha.vercel.app/sitemap.xml
+# Sitemaps
+Sitemap: https://dhruv.dev/sitemap.xml
