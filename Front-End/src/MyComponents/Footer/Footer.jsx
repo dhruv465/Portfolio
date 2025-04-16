@@ -111,7 +111,7 @@ export default function Footer() {
             © {currentYear} Dhruv Sathe. All rights reserved.
           </p>
           <div className="text-gray-500 text-sm">
-            Made with ❤️ in Mumbai, India
+            Made with ❤️ in Pune, India
           </div>
         </div>
       </div>

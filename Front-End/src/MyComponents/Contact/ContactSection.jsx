@@ -13,6 +13,7 @@ export default function ContactSection() {
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
 
   const handleChange = (e) => {
@@ -30,9 +31,16 @@ export default function ContactSection() {
     setFocusedField(null);
   };
 
+  const resetForm = () => {
+    setFormData({ name: "", email: "", message: "" });
+    setSubmitted(false);
+    setError(false);
+  };
+
   const sendEmail = (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(false);
 
     fetch("https://portfolio-d10i.onrender.com/send-email", {
       method: "POST",
@@ -49,18 +57,10 @@ export default function ContactSection() {
       .then((data) => {
         setLoading(false);
         if (data.message === "Email sent successfully") {
-          toast.custom((t) => (
-            <div className="flex items-center gap-3 bg-green-50 border border-green-200 px-4 py-3 rounded-lg">
-              <CheckCircle className="text-green-500" size={18} />
-              <p>Message sent successfully!</p>
-            </div>
-          ));
           setSubmitted(true);
-          setTimeout(() => {
-            setFormData({ name: "", email: "", message: "" });
-            setSubmitted(false);
-          }, 3000);
+          // Form will reset after animation completes
         } else {
+          setError(true);
           toast.custom((t) => (
             <div className="flex items-center gap-3 bg-red-50 border border-red-200 px-4 py-3 rounded-lg">
               <XCircle className="text-red-500" size={18} />
@@ -71,6 +71,7 @@ export default function ContactSection() {
       })
       .catch(() => {
         setLoading(false);
+        setError(true);
         toast.custom((t) => (
           <div className="flex items-center gap-3 bg-red-50 border border-red-200 px-4 py-3 rounded-lg">
             <XCircle className="text-red-500" size={18} />
@@ -183,7 +184,7 @@ export default function ContactSection() {
                 <div>
                   <h3 className="font-medium mb-1">Location</h3>
                   <p className="text-gray-600">
-                    Mumbai, India
+                    Pune, India
                   </p>
                 </div>
               </motion.div>
@@ -203,122 +204,222 @@ export default function ContactSection() {
             />
           </motion.div>
           
-          {/* Right column - Contact Form */}
+          {/* Right column - Contact Form or Success Message */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white rounded-2xl shadow-sm p-8 md:p-10 relative"
+            className="bg-white rounded-2xl shadow-sm p-8 md:p-10 relative overflow-hidden min-h-[450px]"
           >
-            <form onSubmit={sendEmail} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Name
-                </label>
+            <AnimatePresence mode="wait">
+              {submitted ? (
                 <motion.div
-                  whileFocus={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
+                  key="success"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-8"
                 >
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    onFocus={() => handleFocus('name')}
-                    onBlur={handleBlur}
-                    placeholder="Your name"
-                    required
-                    className={inputClasses('name')}
-                  />
-                </motion.div>
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
-                <motion.div
-                  whileFocus={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    onFocus={() => handleFocus('email')}
-                    onBlur={handleBlur}
-                    placeholder="your@email.com"
-                    required
-                    className={inputClasses('email')}
-                  />
-                </motion.div>
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
-                </label>
-                <motion.div
-                  whileFocus={{ scale: 1.01 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    onFocus={() => handleFocus('message')}
-                    onBlur={handleBlur}
-                    placeholder="Tell me about your project..."
-                    required
-                    rows={5}
-                    className={`${inputClasses('message')} resize-none`}
-                  />
-                </motion.div>
-              </div>
-              
-              <motion.button
-                type="submit"
-                disabled={loading}
-                whileHover={{ scale: 1.02, backgroundColor: "#111" }}
-                whileTap={{ scale: 0.98 }}
-                className={`w-full py-4 px-6 bg-black text-white rounded-lg font-medium flex items-center justify-center gap-2 ${
-                  loading ? "opacity-70" : ""
-                }`}
-              >
-                {loading ? (
-                  <>
-                    <Loader2 size={18} className="animate-spin" />
-                    <span>Sending...</span>
-                  </>
-                ) : submitted ? (
-                  <>
-                    <CheckCircle size={18} />
-                    <span>Message sent!</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Send message</span>
-                    <motion.div
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ 
-                        duration: 1.5,
-                        repeat: Infinity,
-                        repeatType: "loop",
-                        ease: "easeInOut",
-                        repeatDelay: 1
-                      }}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: [0, 1.2, 1] }}
+                    transition={{ 
+                      duration: 0.8, 
+                      times: [0, 0.6, 1],
+                      ease: "easeInOut"
+                    }}
+                    className="flex items-center justify-center mb-8"
+                  >
+                    <div className="relative">
+                      <motion.div 
+                        className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center"
+                      >
+                        <CheckCircle className="w-10 h-10 text-green-600" />
+                      </motion.div>
+                      <motion.div
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ 
+                          scale: [0, 1.5, 1],
+                          opacity: [0, 0.8, 0]
+                        }}
+                        transition={{ 
+                          duration: 1.5,
+                          delay: 0.2,
+                          repeat: 2,
+                          repeatDelay: 1
+                        }}
+                        className="absolute inset-0 rounded-full border-4 border-green-400"
+                      />
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="text-center w-full max-w-sm px-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.5 }}
+                  >
+                    <h3 className="text-2xl font-bold mb-3">Message Sent!</h3>
+                    <p className="text-gray-600 mb-8 text-base">
+                      Thanks for reaching out. I'll get back to you soon.
+                    </p>
+                    
+                    <motion.button
+                      onClick={resetForm}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-6 py-3 bg-black text-white rounded-lg font-medium"
                     >
-                      <Send size={18} />
+                      Send another message
+                    </motion.button>
+                  </motion.div>
+                  
+                  {/* Success animation particles */}
+                  <AnimatePresence>
+                    {[...Array(10)].map((_, i) => (
+                      <motion.div
+                        key={`particle-${i}`}
+                        initial={{ 
+                          x: 0, 
+                          y: 0,
+                          opacity: 0,
+                          scale: 0
+                        }}
+                        animate={{ 
+                          x: (Math.random() - 0.5) * 200,
+                          y: (Math.random() - 0.5) * 200,
+                          opacity: [0, 1, 0],
+                          scale: [0, 1, 0.5, 0]
+                        }}
+                        transition={{ 
+                          duration: 1.5 + Math.random(),
+                          delay: 0.2 + i * 0.1,
+                          ease: "easeOut"
+                        }}
+                        className="absolute top-1/2 left-1/2 w-3 h-3 rounded-full"
+                        style={{ 
+                          backgroundColor: i % 3 === 0 ? '#10B981' : i % 2 === 0 ? '#000000' : '#FBBF24',
+                          zIndex: 20
+                        }}
+                      />
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  onSubmit={sendEmail} 
+                  className="space-y-6"
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                      Name
+                    </label>
+                    <motion.div
+                      whileFocus={{ scale: 1.01 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        onFocus={() => handleFocus('name')}
+                        onBlur={handleBlur}
+                        placeholder="Your name"
+                        required
+                        className={inputClasses('name')}
+                      />
                     </motion.div>
-                  </>
-                )}
-              </motion.button>
-            </form>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      Email
+                    </label>
+                    <motion.div
+                      whileFocus={{ scale: 1.01 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        onFocus={() => handleFocus('email')}
+                        onBlur={handleBlur}
+                        placeholder="your@email.com"
+                        required
+                        className={inputClasses('email')}
+                      />
+                    </motion.div>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                      Message
+                    </label>
+                    <motion.div
+                      whileFocus={{ scale: 1.01 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        onFocus={() => handleFocus('message')}
+                        onBlur={handleBlur}
+                        placeholder="Tell me about your project..."
+                        required
+                        rows={5}
+                        className={`${inputClasses('message')} resize-none`}
+                      />
+                    </motion.div>
+                  </div>
+                  
+                  <motion.button
+                    type="submit"
+                    disabled={loading}
+                    whileHover={{ scale: 1.02, backgroundColor: "#111" }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`w-full py-4 px-6 bg-black text-white rounded-lg font-medium flex items-center justify-center gap-2 ${
+                      loading ? "opacity-70" : ""
+                    }`}
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 size={18} className="animate-spin" />
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Send message</span>
+                        <motion.div
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ 
+                            duration: 1.5,
+                            repeat: Infinity,
+                            repeatType: "loop",
+                            ease: "easeInOut",
+                            repeatDelay: 1
+                          }}
+                        >
+                          <Send size={18} />
+                        </motion.div>
+                      </>
+                    )}
+                  </motion.button>
+                </motion.form>
+              )}
+            </AnimatePresence>
             
             {/* Decorative dots pattern */}
             <div className="absolute -right-12 -bottom-12 w-24 h-24 grid grid-cols-3 gap-2 opacity-10">

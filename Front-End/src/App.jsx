@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { AnimatePresence, motion } from 'framer-motion';
 import Loader from './MyComponents/loader/Loader';
-import Home from './pages/Home';
+
+// Lazy load the Home component
+const Home = lazy(() => import('./pages/Home'));
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -12,12 +14,18 @@ function App() {
     // Add mounted state for client-side animation
     setMounted(true);
     
-    // Simulate loading time
+    // Use requestIdleCallback for non-critical initialization
+    // with a fallback for browsers that don't support it
+    const idleCallback = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+    
+    // Start loading immediately but give a minimum perceived loading time
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1200); // Reduced from 2000ms to 1200ms for better UX
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   // Prevent layout shift by waiting for mount
@@ -31,7 +39,7 @@ function App() {
             key="loader"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }} // Reduced transition time
           >
             <Loader />
           </motion.div>
@@ -40,8 +48,8 @@ function App() {
             key="content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="bg-transparent" // Changed from bg-gradient-to-b from-white to-gray-50
+            transition={{ duration: 0.5 }} // Reduced animation time
+            className="bg-transparent"
           >
             <Toaster 
               position="top-right"
@@ -55,7 +63,9 @@ function App() {
                 },
               }}
             />
-            <Home />
+            <Suspense fallback={<Loader />}>
+              <Home />
+            </Suspense>
           </motion.div>
         )}
       </AnimatePresence>
