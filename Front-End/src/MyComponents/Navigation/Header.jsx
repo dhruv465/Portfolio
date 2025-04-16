@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Menu, X, ChevronRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { SimpleEyeTracking } from '../../components/ui/simple-eye-tracking'
 
 export default function Header({ isMobile }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -48,7 +49,7 @@ export default function Header({ isMobile }) {
       animate={{ y: 0 }}
       transition={{ duration: 0.5, type: "spring", stiffness: 100, damping: 20 }}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 relative">
         {/* Increased transparency for glassmorphism effect */}
         <div 
           className={`rounded-full backdrop-blur-md px-5 py-3 transition-all duration-500 border border-white/5
@@ -74,6 +75,22 @@ export default function Header({ isMobile }) {
                 transition={{ duration: 0.2 }}
               />
             </motion.a>
+            
+            {/* Simple eye tracking in center of navbar */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+              {!isMobile && (
+                <div className={`px-3 py-2 rounded-full ${scrolled ? 'bg-white/30' : 'bg-white/20'} transition-colors duration-300`}>
+                  <SimpleEyeTracking 
+                    eyeSize={18}
+                    eyeGap={8}
+                    eyeColor="#ffffff"
+                    pupilColor="#000000"
+                    pupilSize={0.5}
+                    className="mx-auto"
+                  />
+                </div>
+              )}
+            </div>
 
             {isMobile ? (
               <motion.button
