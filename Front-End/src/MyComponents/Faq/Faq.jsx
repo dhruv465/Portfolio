@@ -11,20 +11,20 @@ const faqs = [
     answer: "You can directly drop me a message through the contact form on this website or simply email me at dhruv.sathe11@gmail.com. I typically respond within 24-48 hours."
   },
   {
-    question: "What services does your digital agency offer?",
-    answer: "I offer a comprehensive range of digital services including web design, frontend and backend development, UI/UX design, mobile app development, and SEO optimization. Each solution is tailored to meet the specific needs and goals of my clients."
+    question: "What services do you offer as a freelancer?",
+    answer: "I specialize in web design, frontend and backend development, UI/UX design, mobile app development, and SEO optimization. My goal is to deliver tailored solutions that help you achieve your business objectives."
   },
   {
-    question: "How long does it take to build a website?",
-    answer: "The timeline varies based on project complexity. A simple portfolio or landing page may take 1-2 weeks, while a complex e-commerce platform or custom web application could take 2-3 months. I'll provide a detailed timeline during our initial consultation."
+    question: "How long does it take to complete a project?",
+    answer: "The timeline depends on the project's complexity. A simple portfolio or landing page may take 1-2 weeks, while a more complex application could take 2-3 months. I'll provide a detailed timeline after discussing your requirements."
   },
   {
-    question: "What is your design process?",
-    answer: "My design process involves understanding your requirements, researching your industry and audience, creating wireframes and prototypes, iterating based on feedback, and finally developing and launching the product. I emphasize collaboration throughout the entire process."
+    question: "What is your approach to freelancing projects?",
+    answer: "I follow a structured process: understanding your needs, researching your industry, creating wireframes and prototypes, iterating based on feedback, and delivering a polished product. Collaboration and transparency are key throughout the journey."
   },
   {
-    question: "Do you offer maintenance services after project completion?",
-    answer: "Yes, I offer ongoing maintenance and support services to ensure your website or application remains up-to-date, secure, and performing optimally. We can discuss maintenance packages tailored to your specific needs."
+    question: "Do you provide post-project support?",
+    answer: "Absolutely! I offer maintenance and support services to ensure your website or application stays updated, secure, and performs optimally. Let's discuss a plan that works for you."
   }
 ]
 
