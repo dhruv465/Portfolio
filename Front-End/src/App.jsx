@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { AnimatePresence, motion } from 'framer-motion';
 import Loader from './MyComponents/loader/Loader';
+import CustomCursor from './MyComponents/cursor/CustomCursor';
 import { preloadCriticalImages } from './lib/imageOptimizer';
 import Home from './pages/Home';
 
@@ -22,6 +23,9 @@ function App() {
     // Preload critical images
     preloadCriticalImages(CRITICAL_IMAGES);
     
+    // Add custom cursor active class to body
+    document.body.classList.add('custom-cursor-active');
+    
     // Use requestIdleCallback for non-critical initialization
     const idleCallback = 
       window.requestIdleCallback || 
@@ -34,6 +38,7 @@ function App() {
 
     return () => {
       clearTimeout(timer);
+      document.body.classList.remove('custom-cursor-active');
     };
   }, []);
 
@@ -42,6 +47,9 @@ function App() {
 
   return (
     <>
+      {/* Custom cursor component (only rendered on client-side) */}
+      {mounted && <CustomCursor />}
+      
       <AnimatePresence mode="wait">
         {loading ? (
           <motion.div
