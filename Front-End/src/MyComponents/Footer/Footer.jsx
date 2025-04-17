@@ -20,13 +20,8 @@ export default function Footer() {
     },
     { 
       name: 'GitHub',
-      url: 'https://github.com/dhruv-sathe',
+      url: 'https://github.com/dhruv465',
       icon: <Github className="w-5 h-5" />
-    },
-    { 
-      name: 'Twitter',
-      url: 'https://twitter.com/dhruvdev',
-      icon: <Twitter className="w-5 h-5" />
     }
   ];
 
@@ -100,10 +95,10 @@ export default function Footer() {
               Have a project in mind? Let's create something amazing together.
             </p>
             <a 
-              href="mailto:hello@dhruv.dev"
+              href="mailto:dhruv.sathe11@gmail.com"
               className="inline-flex items-center gap-2 font-medium group mb-6"
             >
-              hello@dhruv.dev
+              dhruv.sathe11@gmail.com
               <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
                 <ArrowUpRight size={16} />
               </span>

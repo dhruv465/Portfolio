@@ -342,10 +342,10 @@ export default function ContactSection() {
                 <div>
                   <h3 className="font-medium mb-1">Email</h3>
                   <a 
-                    href="mailto:hello@dhruv.dev" 
+                    href="mailto:dhruv.sathe11@gmail.com" 
                     className="text-gray-600 hover:text-black transition-colors relative group"
                   >
-                    hello@dhruv.dev
+                    dhruv.sathe11@gmail.com
                     <motion.span 
                       className="absolute bottom-0 left-0 w-0 h-[1px] bg-black group-hover:w-full transition-all duration-300"
                       whileHover={{ width: "100%" }}
