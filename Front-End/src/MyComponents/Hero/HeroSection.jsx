@@ -1,10 +1,20 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Download } from 'lucide-react'
 import { ParticleBackground } from '../../components/ui/particle-background'
 import { AnimatedText } from '../../components/ui/animated-text'
 
 export default function HeroSection() {
+  // Google Drive resume link
+  const resumeUrl = "https://docs.google.com/document/d/1l52Xtbg7VHw5cbQYYSZAb36E3EG2b3saY-eBAx6XQqM/edit?usp=sharing"
+  
+  // Function to handle resume download
+  const handleResumeDownload = () => {
+    // Convert the Google Drive link to an export link that forces download
+    const exportUrl = resumeUrl.replace('/edit?usp=sharing', '/export?format=pdf')
+    window.open(exportUrl, '_blank')
+  }
+
   return (
     <section id="home" className="pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
       {/* Particle background */}
@@ -67,15 +77,16 @@ export default function HeroSection() {
                 </motion.span>
               </motion.a>
               
-              <motion.a
-                href="#contact"
+              <motion.button
+                onClick={handleResumeDownload}
                 whileHover={{ scale: 1.03, backgroundColor: "#000000", color: "#ffffff" }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.3 }}
-                className="px-8 py-4 border-2 border-black text-black rounded-full font-medium flex items-center justify-center gap-2"
+                className="px-8 py-4 border-2 border-black text-black rounded-full font-medium flex items-center justify-center gap-2 hover:gap-3 transition-all"
               >
-                Contact me
-              </motion.a>
+                Download Resume
+                <Download size={18} />
+              </motion.button>
             </motion.div>
           </div>
           

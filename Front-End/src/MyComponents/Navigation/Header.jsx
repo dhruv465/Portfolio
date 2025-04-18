@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Menu, X, ChevronRight, Download } from 'lucide-react'
+import { Menu, X, ChevronRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SimpleEyeTracking } from '../../components/ui/simple-eye-tracking'
 
@@ -9,22 +9,11 @@ export default function Header({ isMobile }) {
   const [activeSection, setActiveSection] = useState('home')
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0)
   
-  // Google Drive resume link
-  const resumeUrl = "https://docs.google.com/document/d/1l52Xtbg7VHw5cbQYYSZAb36E3EG2b3saY-eBAx6XQqM/edit?usp=sharing"
-  
-  // Function to handle resume download
-  const handleResumeDownload = () => {
-    // Convert the Google Drive link to an export link that forces download
-    const exportUrl = resumeUrl.replace('/edit?usp=sharing', '/export?format=pdf')
-    window.open(exportUrl, '_blank')
-  }
-  
   const navItems = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
     { name: 'Projects', href: '#projects' },
     { name: 'FAQ', href: '#faq' },
-    { name: 'Resume', href: '#', isSpecial: true, onClick: handleResumeDownload, icon: <Download size={14} className="ml-1" /> },
     // { name: 'Contact', href: '#contact' }
   ]
 
