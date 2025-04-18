@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Menu, X, ChevronRight } from 'lucide-react'
+import { Menu, X, ChevronRight, Download } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SimpleEyeTracking } from '../../components/ui/simple-eye-tracking'
 
@@ -7,12 +7,24 @@ export default function Header({ isMobile }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0)
+  
+  // Google Drive resume link
+  const resumeUrl = "https://docs.google.com/document/d/1l52Xtbg7VHw5cbQYYSZAb36E3EG2b3saY-eBAx6XQqM/edit?usp=sharing"
+  
+  // Function to handle resume download
+  const handleResumeDownload = () => {
+    // Convert the Google Drive link to an export link that forces download
+    const exportUrl = resumeUrl.replace('/edit?usp=sharing', '/export?format=pdf')
+    window.open(exportUrl, '_blank')
+  }
   
   const navItems = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
     { name: 'Projects', href: '#projects' },
     { name: 'FAQ', href: '#faq' },
+    { name: 'Resume', href: '#', isSpecial: true, onClick: handleResumeDownload, icon: <Download size={14} className="ml-1" /> },
     // { name: 'Contact', href: '#contact' }
   ]
 
@@ -36,9 +48,34 @@ export default function Header({ isMobile }) {
       }
     }
     
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth)
+    }
+    
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('resize', handleResize)
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
+
+  // Determine if we should show the eye tracking based on screen size
+  const showEyeTracking = () => {
+    // Only show eyes when there's enough space
+    if (windowWidth < 640) return false; // Hide on extra small screens
+    if (windowWidth < 768) return false; // Hide on small screens
+    if (windowWidth < 1024 && navItems.length > 3) return false; // Hide on medium screens if many nav items
+    return !isMobile;
+  }
+  
+  // Adjust eye size based on available space
+  const getEyeSize = () => {
+    if (windowWidth > 1280) return 18; // Large screens
+    if (windowWidth > 1024) return 16; // Medium-large screens
+    return 14; // Default for smaller screens where eyes are still shown
+  }
 
   return (
     <motion.header 
@@ -76,21 +113,21 @@ export default function Header({ isMobile }) {
               />
             </motion.a>
             
-            {/* Simple eye tracking in center of navbar */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-              {!isMobile && (
-                <div className={`px-3 py-2 rounded-full ${scrolled ? 'bg-white/30' : 'bg-white/20'} transition-colors duration-300`}>
+            {/* Simple eye tracking - conditionally rendered and positioned */}
+            {showEyeTracking() && (
+              <div className="hidden md:block lg:block">
+                <div className={`px-3 py-2 rounded-full ${scrolled ? 'bg-white/30' : 'bg-white/20'} transition-colors duration-300 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}>
                   <SimpleEyeTracking 
-                    eyeSize={18}
-                    eyeGap={8}
+                    eyeSize={getEyeSize()}
+                    eyeGap={6}
                     eyeColor="#ffffff"
                     pupilColor="#000000"
                     pupilSize={0.5}
                     className="mx-auto"
                   />
                 </div>
-              )}
-            </div>
+              </div>
+            )}
 
             {isMobile ? (
               <motion.button
@@ -103,7 +140,7 @@ export default function Header({ isMobile }) {
                 {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
               </motion.button>
             ) : (
-              <nav className="relative z-10">
+              <nav className="relative z-20">
                 <ul className="flex items-center gap-1">
                   {navItems.map((item) => (
                     <li key={item.name}>
@@ -117,6 +154,7 @@ export default function Header({ isMobile }) {
                         `}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
+                        onClick={item.onClick}
                       >
                         {/* Pill background for active item */}
                         {activeSection === item.href.substring(1) && (
@@ -131,6 +169,7 @@ export default function Header({ isMobile }) {
                           />
                         )}
                         {item.name}
+                        {item.icon}
                       </motion.a>
                     </li>
                   ))}
@@ -186,9 +225,13 @@ export default function Header({ isMobile }) {
                           ? 'bg-black text-white'
                           : 'hover:bg-black/5'
                       }`}
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        item.onClick && item.onClick()
+                      }}
                     >
                       {item.name}
+                      {item.icon}
                     </a>
                   </motion.li>
                 ))}
