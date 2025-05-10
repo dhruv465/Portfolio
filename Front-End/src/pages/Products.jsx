@@ -7,6 +7,52 @@ import { FlowingGradient } from '../components/ui/flowing-gradient';
 import { GridAnimation } from '../components/ui/grid-animation';
 import { motion } from 'framer-motion';
 import { fetchAllProducts } from '../lib/api/gumroad';
+import { Link } from 'react-router-dom';
+
+// Floating Go Back Home Button Component
+const FloatingHomeButton = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <motion.div
+      className="fixed top-24 left-8 z-50"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.5, duration: 0.3, type: "spring", stiffness: 300 }}
+    >
+      <Link to="/">
+        <motion.button
+          className="flex items-center justify-center p-4 bg-black text-white rounded-full shadow-lg hover:shadow-xl"
+          whileHover={{ scale: 1.1, backgroundColor: "#333" }}
+          whileTap={{ scale: 0.95 }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <motion.span 
+            className="absolute left-full ml-3 whitespace-nowrap bg-black text-white text-sm py-1 px-3 rounded-lg opacity-0 transition-opacity pointer-events-none"
+            animate={{ opacity: isHovered ? 1 : 0 }}
+          >
+            Back to Home
+          </motion.span>
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-6 w-6" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" 
+            />
+          </svg>
+        </motion.button>
+      </Link>
+    </motion.div>
+  );
+};
 
 // Product Card Component for regular products (2nd and onwards)
 const ProductCard = ({ product }) => {
@@ -324,6 +370,9 @@ export default function Products() {
 
   return (
     <div className="relative overflow-hidden min-h-screen">
+      {/* Floating Go Back Home Button */}
+      <FloatingHomeButton />
+      
       {/* Global animated backgrounds with improved visibility - same as home page */}
       <div className="fixed inset-0 z-[-3]" style={{ pointerEvents: "none" }}>
         {/* Primary background with flowing gradients */}
@@ -439,6 +488,7 @@ export default function Products() {
       </main>
       
       <Footer />
+      <FloatingHomeButton />
     </div>
   );
 }
