@@ -2,6 +2,8 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { AnimatedText } from '../../components/ui/animated-text'
 import AceternityProjectShowcase from './AceternityProjectShowcase'
+import { Link } from 'react-router-dom'
+import { ShoppingBag } from 'lucide-react'
 
 export default function ProjectsSection() {
   const projectCards = [
@@ -68,24 +70,91 @@ export default function ProjectsSection() {
         {/* Website Showcase Section - Only keeping this part */}
         <AceternityProjectShowcase projects={projectCards} />
         
-        {/* View all button */}
+        {/* Enhanced Products CTA Section */}
         <motion.div 
-          className="mt-8 text-center"
-          initial={{ opacity: 0, y: 20 }}
+          className="mt-20 py-12 px-6 relative overflow-hidden"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.7 }}
         >
-          <motion.a
-            href="/projects"
-            whileHover={{ scale: 1.05, backgroundColor: "#000000", color: "#ffffff" }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.3 }}
-            className="inline-block px-8 py-3 border-2 border-black text-black font-medium rounded-full transition-colors"
-          >
-            View all projects
-          </motion.a>
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.h3 
+              className="text-2xl md:text-3xl font-bold mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              Discover My Digital Products
+            </motion.h3>
+            
+            <motion.p 
+              className="text-gray-700 mb-8 max-w-2xl mx-auto"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Explore my collection of premium digital resources, tools, and templates designed to help you elevate your projects.
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <Link to="/products" className="inline-block">
+                <motion.button
+                  className="flex items-center justify-center gap-3 px-8 py-4 bg-black text-white rounded-full shadow-xl font-medium text-lg group"
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span>Browse Digital Products</span>
+                  <motion.div
+                    className="bg-white/20 p-2 rounded-full"
+                    whileHover={{ rotate: 15 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ShoppingBag size={20} className="group-hover:scale-110 transition-transform" />
+                  </motion.div>
+                </motion.button>
+              </Link>
+            </motion.div>
+            
+            {/* Decorative elements */}
+            <motion.div 
+              className="absolute top-6 right-8 h-16 w-16 rounded-full bg-purple-400/20 blur-xl"
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [0.4, 0.6, 0.4]
+              }}
+              transition={{ 
+                duration: 3, 
+                repeat: Infinity,
+                repeatType: "reverse" 
+              }}
+            />
+            <motion.div 
+              className="absolute bottom-6 left-8 h-20 w-20 rounded-full bg-blue-400/20 blur-xl"
+              animate={{ 
+                scale: [1, 1.3, 1],
+                opacity: [0.3, 0.5, 0.3]
+              }}
+              transition={{ 
+                duration: 4, 
+                repeat: Infinity,
+                repeatType: "reverse",
+                delay: 1
+              }}
+            />
+          </div>
         </motion.div>
+
       </div>
     </section>
   )

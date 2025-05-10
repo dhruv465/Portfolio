@@ -13,6 +13,7 @@ export default function Header({ isMobile }) {
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Products', href: '/products' },
     { name: 'FAQ', href: '#faq' },
     // { name: 'Contact', href: '#contact' }
   ]
@@ -44,6 +45,9 @@ export default function Header({ isMobile }) {
     window.addEventListener('scroll', handleScroll)
     window.addEventListener('resize', handleResize)
     
+    // Initial scroll check
+    handleScroll()
+    
     return () => {
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', handleResize)
@@ -64,6 +68,23 @@ export default function Header({ isMobile }) {
     if (windowWidth > 1280) return 18; // Large screens
     if (windowWidth > 1024) return 16; // Medium-large screens
     return 14; // Default for smaller screens where eyes are still shown
+  }
+  
+  // Calculate eye position based on screen width and navigation items
+  const getEyePosition = () => {
+    // Base position (centered)
+    let leftPosition = '50%';
+    
+    // Adjust position based on screen size and number of nav items
+    if (windowWidth < 1200 && navItems.length >= 5) {
+      leftPosition = '45%'; // Move left slightly on medium screens with many items
+    } else if (windowWidth < 1400 && navItems.length >= 5) {
+      leftPosition = '48%'; // Slight adjustment for larger screens
+    } else if (windowWidth >= 1400) {
+      leftPosition = '50%'; // Centered on very large screens
+    }
+    
+    return leftPosition;
   }
 
   return (
@@ -104,8 +125,13 @@ export default function Header({ isMobile }) {
             
             {/* Simple eye tracking - conditionally rendered and positioned */}
             {showEyeTracking() && (
-              <div className="hidden md:block lg:block">
-                <div className={`px-3 py-2 rounded-full ${scrolled ? 'bg-white/30' : 'bg-white/20'} transition-colors duration-300 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}>
+              <div className="absolute hidden md:block lg:block" style={{ 
+                left: getEyePosition(),
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                zIndex: 5
+              }}>
+                <div className={`px-3 py-2 rounded-full ${scrolled ? 'bg-white/30' : 'bg-white/20'} transition-colors duration-300`}>
                   <SimpleEyeTracking 
                     eyeSize={getEyeSize()}
                     eyeGap={6}

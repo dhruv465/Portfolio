@@ -206,17 +206,7 @@ const ProjectCardGrid = ({ projects }) => {
         ))}
       </div>
 
-      {/* View all projects button */}
-      <div className="mt-16 text-center">
-        <motion.a
-          href="/projects"
-          className="inline-flex items-center justify-center px-8 py-3 border-2 border-black bg-white text-black font-medium rounded-full transition-colors hover:bg-black hover:text-white"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          View All Projects
-        </motion.a>
-      </div>
+
     </div>
   );
 };

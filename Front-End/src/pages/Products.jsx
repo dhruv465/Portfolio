@@ -21,8 +21,12 @@ const FloatingHomeButton = () => {
     >
       <Link to="/">
         <motion.button
-          className="flex items-center justify-center p-4 bg-black text-white rounded-full shadow-lg hover:shadow-xl"
-          whileHover={{ scale: 1.1, backgroundColor: "#333" }}
+          className="flex items-center justify-center p-4 bg-white/20 backdrop-blur-md text-black rounded-full shadow-lg hover:shadow-xl border border-white/30"
+          whileHover={{ 
+            scale: 1.1, 
+            backgroundColor: "rgba(255, 255, 255, 0.3)",
+            boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+          }}
           whileTap={{ scale: 0.95 }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
