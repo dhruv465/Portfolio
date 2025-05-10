@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../MyComponents/Navigation/Header';
 import Footer from '../MyComponents/Footer/Footer';
 import Loader from '../MyComponents/loader/Loader';
 import { AnimatedShapesBackground } from '../components/ui/animated-shapes-background';
@@ -15,7 +14,7 @@ const FloatingHomeButton = () => {
   
   return (
     <motion.div
-      className="fixed top-24 left-8 z-50"
+      className="fixed top-8 left-8 z-50"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.5, duration: 0.3, type: "spring", stiffness: 300 }}
@@ -408,9 +407,7 @@ export default function Products() {
         />
       </div>
       
-      <Header isMobile={isMobile} />
-      
-      <main className="pt-20">
+      <main>
         <div className="relative">
           {/* Header section with consistent styling */}
           <div className="relative py-20 mb-10">
@@ -488,7 +485,6 @@ export default function Products() {
       </main>
       
       <Footer />
-      <FloatingHomeButton />
     </div>
   );
 }
