@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AnimatePresence, motion } from 'framer-motion';
 import Loader from './MyComponents/loader/Loader';
 import CustomCursor from './MyComponents/cursor/CustomCursor';
 import { preloadCriticalImages } from './lib/imageOptimizer';
 import Home from './pages/Home';
+import Products from './pages/Products';
 
 // List of critical images to preload
 const CRITICAL_IMAGES = [
@@ -80,7 +82,12 @@ function App() {
                 },
               }}
             />
-            <Home />
+            <Router>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/products" element={<Products />} />
+              </Routes>
+            </Router>
           </motion.div>
         )}
       </AnimatePresence>
