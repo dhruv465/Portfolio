@@ -477,12 +477,12 @@ export default function Products() {
                 If you're looking for custom development or have questions about any of the products,
                 feel free to get in touch.
               </p>
-              <a 
-                href="#contact" 
+              <Link 
+                to="/#contact" 
                 className="inline-flex items-center py-3 px-6 bg-black text-white rounded-full hover:bg-gray-900 transition-colors duration-300"
               >
                 Contact Me
-              </a>
+              </Link>
             </motion.div>
           </div>
         </div>
